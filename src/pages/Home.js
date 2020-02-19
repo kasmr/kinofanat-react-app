@@ -1,5 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { MovieContext } from '../context/MovieContext';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const { movies, getMovies, getGenre, genre } = useContext(MovieContext);
@@ -18,7 +19,12 @@ const Home = () => {
       <h1>Movies Today</h1>
       {movies.map(movie => (
         <div key={movie.id}>
-          <h1>{movie.title}</h1>
+          <Link to={`/movie/${movie.id}`}>
+            <h1>{movie.title}</h1>
+          </Link>
+          {movie.title === movie.original_title ? null : (
+            <h4>{movie.original_title}</h4>
+          )}
           <h4>Average rating: {movie.vote_average}</h4>
           <h4>
             Genre

@@ -3,6 +3,7 @@ import React, { useState, createContext, useEffect } from 'react';
 export const MovieContext = createContext();
 
 export const MovieProvider = props => {
+  //MoviesState
   const [movies, setMovies] = useState([]);
 
   const getMovies = async () => {
@@ -11,9 +12,13 @@ export const MovieProvider = props => {
     );
     const data = await response.json();
     setMovies(data.results);
-
-    // console.log(data.results);
   };
+
+  //MovieDetailState
+
+  const [movie, setMovie] = useState({});
+
+  //GenreState
 
   const [genre, setGenre] = useState([]);
 
@@ -31,7 +36,7 @@ export const MovieProvider = props => {
 
   return (
     <MovieContext.Provider
-      value={{ movies, setMovies, getMovies, getGenre, genre }}
+      value={{ movies, setMovies, getMovies, getGenre, genre, movie, setMovie }}
     >
       {props.children}
     </MovieContext.Provider>
