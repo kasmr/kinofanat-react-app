@@ -11,7 +11,7 @@ function App() {
     <MovieProvider>
       <BrowserRouter>
         <Navbar />
-        <div className='container pt-4'>
+        <div>
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/about' component={About} />

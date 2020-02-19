@@ -20,7 +20,7 @@ export const MovieProvider = props => {
 
   //MovieDetailState
 
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState([]);
 
   //SearchState
 

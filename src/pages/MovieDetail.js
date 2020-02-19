@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
+import '../index.scss';
 
 const MovieDetail = match => {
   const { movie, setMovie } = useContext(MovieContext);
@@ -18,6 +19,7 @@ const MovieDetail = match => {
     console.log(movie);
   };
 
+  const { title, genres, original_title, poster_path } = movie;
   // const style = {
   //   backgroundImage: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
   //   backgroundRepeat: ' no-repeat',
@@ -28,12 +30,23 @@ const MovieDetail = match => {
   // };
 
   return (
-    <div>
+    <div
+    // className='movieDetails'
+    // style={{
+    //   backgroundImage: `url(https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.backdrop_path})`
+    // }}
+    >
+      {poster_path && (
+        <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} />
+      )}
       <h1>{movie.title}</h1>
       {movie.title === movie.original_title ? null : (
         <h4>{movie.original_title}</h4>
       )}
-      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+      <ul>
+        {genres &&
+          genres.map((item, index) => <li key={index}>{item.name}</li>)}
+      </ul>
       <h4>Duration: {movie.runtime} min</h4>
       <h4>Release date {movie.release_date}</h4>
       {movie.homepage ? (
@@ -45,7 +58,6 @@ const MovieDetail = match => {
         Average rating: {movie.vote_average} votes: {movie.vote_count}
       </h4>
       <p>{movie.overview}</p>
-
       {/* <h3>Budget: {movie.budget} $</h3> */}
     </div>
   );
