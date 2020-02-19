@@ -14,19 +14,19 @@ const Navbar = () => {
     >
       <NavLink to='/'>
         <div className='navbar-brand align-items-center' href='#'>
-          КИНОФАНАТ
+          KinoFanat
         </div>
       </NavLink>
       <Search />
       <ul className='nav justify-content-end '>
         <li className='nav-item'>
           <NavLink className='nav-link text-light' to='/'>
-            Главная
+            Home
           </NavLink>
         </li>
         <li className='nav-item'>
           <NavLink className='nav-link text-light' to='/about'>
-            Информация
+            About
           </NavLink>
         </li>
       </ul>

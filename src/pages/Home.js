@@ -1,18 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const { movies, getMovies, getGenre, genre } = useContext(MovieContext);
-  console.log(genre);
-
-  useEffect(() => {
-    getMovies();
-  }, []);
-
-  useEffect(() => {
-    getGenre();
-  }, []);
+  const { movies } = useContext(MovieContext);
 
   return (
     <div>
@@ -26,14 +17,9 @@ const Home = () => {
             <h4>{movie.original_title}</h4>
           )}
           <h4>Average rating: {movie.vote_average}</h4>
-          <h4>
-            Genre
-            {movie.genre_ids.map(id => (
-              <p key={id}>{id}</p>
-              // <p>{genre.id === id ? genre.name : null}</p>
-            ))}
-          </h4>
-          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+          <Link to={`/movie/${movie.id}`}>
+            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+          </Link>
           <p>
             Plot <br />
             {movie.overview}

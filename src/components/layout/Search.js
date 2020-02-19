@@ -2,40 +2,40 @@ import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../../context/MovieContext';
 
 const Search = () => {
-  // const { movies, setMovies, search, setSearch, query, setQuery } = useContext(
-  //   MovieContext
-  // );
+  const { search, setSearch, setQuery, query, setMovies } = useContext(
+    MovieContext
+  );
 
-  // // const apiurl = 'http://www.omdbapi.com/?apikey=b55e3028';
+  const searchMovies = async e => {
+    e.preventDeafault();
+    setQuery(search);
+    const response = await fetch(
+      `https://api.themoviedb.org/3/search/multi?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=en-US&query=${query}&include_adult=false`
+    );
+    const data = await response.json();
+    setMovies(data);
+    console.log(data);
+    setSearch('');
+  };
 
-  // useEffect(() => {
-  //   getMovies();
-  // }, []);
-
-  // const updateSearch = e => {
-  //   setSearch(e.target.value);
-  // };
-
-  // const getSearch = async e => {
-  //   e.preventDeafault();
-  //   setQuery(search);
-  //   setSearch('');
-  // };
+  const updateSearch = e => {
+    setSearch(e.target.value);
+  };
 
   return (
     <form
       className='form-inline justify-content-center w-75'
-      // onSubmit={getSearch}
+      onSubmit={searchMovies}
     >
       <input
         className='form-control mr-sm-2 w-50'
         type='text'
-        // value={search}
-        placeholder='Введите название фильма...'
-        // onChange={updateSearch}
+        value={search}
+        placeholder='Search for the movie, person, tv show...'
+        onChange={updateSearch}
       />
       <button className='btn btn-outline-light my-2 my-sm-0' type='submit'>
-        Поиск
+        Search
       </button>
     </form>
   );
