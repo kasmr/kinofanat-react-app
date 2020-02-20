@@ -7,8 +7,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #1f4287;
   color: #ffffff;
+  background-image: linear-gradient(to right, #434343 0%, black 100%);
+  a {
+    color: #ffffff;
+    &:hover {
+      color: #ffffff;
+    }
+  }
 }
 
 code {
@@ -26,4 +32,8 @@ code {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.alert-search {
+  background-image: linear-gradient(to right, #ff0000d0 0%, #434343 100%);
 }

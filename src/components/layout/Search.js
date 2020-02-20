@@ -1,20 +1,26 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { MovieContext } from '../../context/MovieContext';
 
 const Search = () => {
-  const { search, setSearch, setQuery, query, setMovies } = useContext(
+  const { search, setSearch, setMovies, setAlert, alert } = useContext(
     MovieContext
   );
 
   const searchMovies = async e => {
     e.preventDefault();
-    console.log(search);
-    const response = await fetch(
-      `https://api.themoviedb.org/3/search/multi?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=en-US&query=${search}&include_adult=false`
-    );
-    const data = await response.json();
-    setMovies(data.results);
-    console.log('data:', data.results);
+    if (search === '') {
+      setAlert('Please enter something...');
+      setTimeout(() => {
+        setAlert('');
+      }, 5000);
+    } else {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/search/multi?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=en-US&query=${search}&include_adult=false`
+      );
+      const data = await response.json();
+      setMovies(data.results);
+      setSearch('');
+    }
   };
 
   const updateSearch = e => {

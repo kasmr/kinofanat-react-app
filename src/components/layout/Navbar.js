@@ -4,7 +4,7 @@ import Search from './Search';
 
 const Navbar = () => {
   const navStyle = {
-    backgroundColor: '#071e3d'
+    backgroundImage: 'linear-gradient(to left, #434343 0%, black 100%)'
   };
 
   return (

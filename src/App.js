@@ -5,6 +5,7 @@ import About from './pages/About';
 import Navbar from './components/layout/Navbar';
 import MovieDetail from './pages/MovieDetail';
 import { MovieProvider } from './context/MovieContext';
+import Alert from './components/Alert';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div>
+          <Alert />
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/about' component={About} />

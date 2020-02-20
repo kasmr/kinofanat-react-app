@@ -27,6 +27,10 @@ export const MovieProvider = props => {
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
 
+  //AlertState
+
+  const [alert, setAlert] = useState('');
+
   return (
     <MovieContext.Provider
       value={{
@@ -38,7 +42,9 @@ export const MovieProvider = props => {
         search,
         setSearch,
         query,
-        setQuery
+        setQuery,
+        alert,
+        setAlert
       }}
     >
       {props.children}

@@ -19,7 +19,18 @@ const MovieDetail = match => {
     console.log(movie);
   };
 
-  const { title, genres, original_title, poster_path } = movie;
+  const {
+    title,
+    genres,
+    original_title,
+    poster_path,
+    release_date,
+    runtime,
+    homepage,
+    vote_average,
+    vote_count,
+    overview
+  } = movie;
   // const style = {
   //   backgroundImage: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
   //   backgroundRepeat: ' no-repeat',
@@ -39,25 +50,22 @@ const MovieDetail = match => {
       {poster_path && (
         <img src={`https://image.tmdb.org/t/p/w500${poster_path}`} />
       )}
-      <h1>{movie.title}</h1>
-      {movie.title === movie.original_title ? null : (
-        <h4>{movie.original_title}</h4>
-      )}
+      <h1>{title}</h1>
+      {title === original_title ? null : <h4>{original_title}</h4>}
       <ul>
-        {genres &&
-          genres.map((item, index) => <li key={index}>{item.name}</li>)}
+        {genres && genres.map(item => <li key={item.id}>{item.name}</li>)}
       </ul>
-      <h4>Duration: {movie.runtime} min</h4>
-      <h4>Release date {movie.release_date}</h4>
+      <h4>Duration: {runtime} min</h4>
+      <h4>Release date {release_date}</h4>
       {movie.homepage ? (
         <h4>
-          Homepage of the movie <a href={movie.homepage}>{movie.homepage}</a>
+          Homepage of the movie <a href={homepage}>{homepage}</a>
         </h4>
       ) : null}
       <h4>
-        Average rating: {movie.vote_average} votes: {movie.vote_count}
+        Average rating: {vote_average} votes: {vote_count}
       </h4>
-      <p>{movie.overview}</p>
+      <p>{overview}</p>
       {/* <h3>Budget: {movie.budget} $</h3> */}
     </div>
   );
