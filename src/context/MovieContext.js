@@ -22,6 +22,10 @@ export const MovieProvider = props => {
 
   const [movie, setMovie] = useState([]);
 
+  //TrailerState
+
+  const [trailers, setTrailers] = useState([]);
+
   //SearchState
 
   const [search, setSearch] = useState('');
@@ -44,7 +48,9 @@ export const MovieProvider = props => {
         query,
         setQuery,
         alert,
-        setAlert
+        setAlert,
+        trailers,
+        setTrailers
       }}
     >
       {props.children}

@@ -37,3 +37,21 @@ code {
 .alert-search {
   background-image: linear-gradient(to right, #ff0000d0 0%, #434343 100%);
 }
+
+.not-found {
+  width: 100vw;
+  height: 94vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 5rem;
+    color: #b10101;
+  }
+
+  p {
+    font-size: 2rem;
+  }
+}

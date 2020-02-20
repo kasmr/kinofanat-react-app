@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar';
 import MovieDetail from './pages/MovieDetail';
 import { MovieProvider } from './context/MovieContext';
 import Alert from './components/Alert';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/about' component={About} />
             <Route path='/movie/:id' component={MovieDetail} />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </BrowserRouter>

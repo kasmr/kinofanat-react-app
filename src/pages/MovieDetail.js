@@ -3,10 +3,11 @@ import { MovieContext } from '../context/MovieContext';
 import '../index.scss';
 
 const MovieDetail = match => {
-  const { movie, setMovie } = useContext(MovieContext);
+  const { movie, setMovie, trailers, setTrailers } = useContext(MovieContext);
 
   useEffect(() => {
     getMovie();
+    getTrailer();
   }, []);
 
   const getMovie = async () => {
@@ -16,10 +17,19 @@ const MovieDetail = match => {
 
     const movie = await getMovie.json();
     setMovie(movie);
-    console.log(movie);
+  };
+
+  const getTrailer = async () => {
+    const getTrailer = await fetch(
+      `https://api.themoviedb.org/3/movie/${match.match.params.id}/videos?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+    );
+
+    const data = await getTrailer.json();
+    setTrailers(data.results);
   };
 
   const {
+    id,
     title,
     genres,
     original_title,
@@ -29,7 +39,10 @@ const MovieDetail = match => {
     homepage,
     vote_average,
     vote_count,
-    overview
+    overview,
+    production_companies,
+    production_countries,
+    tagline
   } = movie;
   // const style = {
   //   backgroundImage: `https://image.tmdb.org/t/p/original${movie.backdrop_path}`,
@@ -52,8 +65,25 @@ const MovieDetail = match => {
       )}
       <h1>{title}</h1>
       {title === original_title ? null : <h4>{original_title}</h4>}
+      <p>{tagline}</p>
       <ul>
-        {genres && genres.map(item => <li key={item.id}>{item.name}</li>)}
+        {production_countries &&
+          production_countries.map(country => (
+            <li key={country.iso_3166_1}>{country.name}</li>
+          ))}
+      </ul>
+      <ul>
+        {genres && genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+      </ul>
+      <ul>
+        {production_companies &&
+          production_companies.map(company => (
+            <li key={company.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
+              />
+            </li>
+          ))}
       </ul>
       <h4>Duration: {runtime} min</h4>
       <h4>Release date {release_date}</h4>
@@ -67,6 +97,19 @@ const MovieDetail = match => {
       </h4>
       <p>{overview}</p>
       {/* <h3>Budget: {movie.budget} $</h3> */}
+      <div>
+        Videos
+        {trailers
+          ? trailers.map(video => (
+              <iframe
+                width='560'
+                height='315'
+                src={`https://www.youtube.com/embed/${video.key}`}
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
+              ></iframe>
+            ))
+          : null}
+      </div>
     </div>
   );
 };
