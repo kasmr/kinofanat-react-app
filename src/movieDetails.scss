@@ -1,0 +1,44 @@
+.background-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-blend-mode: color;
+  background: rgba(0, 0, 0, 0.96);
+}
+
+.movieDetails {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0;
+  padding: 2rem;
+
+  .poster {
+    width: 30%;
+    height: 100%;
+  }
+
+  .content {
+    padding-left: 10rem;
+    line-height: 1.5;
+
+    h1,
+    h4,
+    p,
+    div {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      padding: 0;
+      list-style: none;
+      display: flex;
+      justify-content: flex-start;
+      li {
+        margin: 1rem;
+      }
+    }
+  }
+}
