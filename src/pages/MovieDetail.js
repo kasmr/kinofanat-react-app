@@ -17,6 +17,7 @@ const MovieDetail = match => {
 
     const movie = await getMovie.json();
     setMovie(movie);
+    console.log(movie);
   };
 
   const getTrailer = async () => {
@@ -25,7 +26,9 @@ const MovieDetail = match => {
     );
 
     const data = await getTrailer.json();
-    setTrailers(data.results);
+    data.results.filter(result =>
+      result.type === 'Trailer' ? setTrailers(result) : null
+    );
   };
 
   const {
@@ -75,16 +78,18 @@ const MovieDetail = match => {
       <ul>
         {genres && genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
       </ul>
-      <ul>
+      <div>
         {production_companies &&
           production_companies.map(company => (
-            <li key={company.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
-              />
-            </li>
+            <div key={company.id}>
+              {company.logo_path === null ? null : (
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
+                />
+              )}
+            </div>
           ))}
-      </ul>
+      </div>
       <h4>Duration: {runtime} min</h4>
       <h4>Release date {release_date}</h4>
       {movie.homepage ? (
@@ -96,19 +101,15 @@ const MovieDetail = match => {
         Average rating: {vote_average} votes: {vote_count}
       </h4>
       <p>{overview}</p>
-      {/* <h3>Budget: {movie.budget} $</h3> */}
       <div>
-        Videos
-        {trailers
-          ? trailers.map(video => (
-              <iframe
-                width='560'
-                height='315'
-                src={`https://www.youtube.com/embed/${video.key}`}
-                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
-              ></iframe>
-            ))
-          : null}
+        <h3>Trailer</h3>
+        <iframe
+          key={trailers.id}
+          width='560'
+          height='315'
+          src={`https://www.youtube.com/embed/${trailers.key}`}
+          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
+        ></iframe>
       </div>
     </div>
   );
