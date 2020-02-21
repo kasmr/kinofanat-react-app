@@ -51,10 +51,10 @@ const MovieDetail = match => {
     <div
       className='background-image'
       style={{
-        backgroundImage: `url(https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.backdrop_path})`,
+        backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        backgroundPosition: 'left'
+        backgroundPosition: 'top center bottom'
       }}
     >
       <div className='movieDetails'>
