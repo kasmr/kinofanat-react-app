@@ -65,43 +65,71 @@ const MovieDetail = match => {
           />
         )}
         <div className='content'>
-          <h1>{title}</h1>
+          <h1 style={{ marginBottom: '0' }}>{title}</h1>
           {title === original_title ? null : <h4>{original_title}</h4>}
-          <p>{tagline}</p>
+          <p className='second-text'>{tagline}</p>
+          <h4>Countries</h4>
           <ul>
             {production_countries &&
               production_countries.map(country => (
-                <li key={country.iso_3166_1}>{country.name}</li>
+                <li key={country.iso_3166_1} className='second-text'>
+                  {country.name}
+                </li>
               ))}
           </ul>
+          <h4>Genres</h4>
           <ul>
             {genres &&
-              genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+              genres.map(genre => (
+                <li key={genre.id} className='second-text'>
+                  {genre.name}
+                </li>
+              ))}
           </ul>
-          <ul>
-            {production_companies ? <h4>Production companies:</h4> : null}
+          {production_companies && <h4>Production companies:</h4>}
+          <ul
+            className='companies'
+            style={{
+              gridTemplateColumns: `repeat(${production_companies &&
+                production_companies.length}, 1fr)`
+            }}
+          >
             {production_companies &&
-              production_companies.map(company => (
-                <div style={{ backgroundColor: '#fff' }} key={company.id}>
-                  {company.logo_path === null ? null : (
+              production_companies
+                .filter(company => company.logo_path !== null)
+                .map(company => (
+                  <li className='prod-company' key={company.id}>
                     <img
                       src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
                     />
-                  )}
-                </div>
-              ))}
+                  </li>
+                ))}
           </ul>
-          <h4>Duration: {runtime} min</h4>
-          <h4>Release date {release_date}</h4>
+          <h4>
+            Duration: <span className='second-text'>{runtime} min</span>
+          </h4>
+          <h4>
+            Release date: <span className='second-text'>{release_date}</span>
+          </h4>
           {movie.homepage ? (
             <h4>
-              Homepage of the movie <a href={homepage}>{homepage}</a>
+              Homepage of the movie: {''}
+              <a href={homepage} target='_blank'>
+                {homepage}
+              </a>
             </h4>
           ) : null}
           <h4>
-            Average rating: {vote_average} votes: {vote_count}
+            Average rating:{' '}
+            <span
+              className={vote_average > 7.0 ? 'text-success' : 'text-warning'}
+            >
+              {vote_average}
+            </span>{' '}
+            votes: <span className='second-text'>{vote_count}</span>
           </h4>
-          <p>{overview}</p>
+          <h4>Plot</h4>
+          <p className='overview second-text'>{overview}</p>
           <div>
             <h3>Trailer</h3>
             <iframe
