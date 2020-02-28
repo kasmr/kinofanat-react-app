@@ -15,7 +15,7 @@ const Search = () => {
       }, 5000);
     } else {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=en-US&query=${search}&include_adult=false`
+        `https://api.themoviedb.org/3/search/movie?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=en-US&query=${search}&include_adult=false`
       );
       const data = await response.json();
       setMovies(data.results);

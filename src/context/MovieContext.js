@@ -8,7 +8,7 @@ export const MovieProvider = props => {
 
   const getMovies = async () => {
     const response = await fetch(
-      'https://api.themoviedb.org/3/movie/now_playing?api_key=35f31bc5ec65018dd8090674c49fe3d2'
+      'https://api.themoviedb.org/3/movie/now_playing?api_key=35f31bc5ec65018dd8090674c49fe3d2&page=1'
     );
     const data = await response.json();
     setMovies(data.results);
@@ -17,6 +17,10 @@ export const MovieProvider = props => {
   useEffect(() => {
     getMovies();
   }, []);
+
+  //ScreenshotsState
+
+  const [screenshots, setScreenshots] = useState([]);
 
   //MovieDetailState
 
@@ -50,7 +54,9 @@ export const MovieProvider = props => {
         alert,
         setAlert,
         trailers,
-        setTrailers
+        setTrailers,
+        screenshots,
+        setScreenshots
       }}
     >
       {props.children}

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { MovieContext } from '../context/MovieContext';
-import '../movieDetails.scss';
+import { MovieContext } from '../../context/MovieContext';
+import { Link } from 'react-router-dom';
+import '../../movieDetails.scss';
+import Screenshots from './Screenshots';
 
 const MovieDetail = match => {
   const { movie, setMovie, trailers, setTrailers } = useContext(MovieContext);
@@ -8,7 +10,7 @@ const MovieDetail = match => {
   useEffect(() => {
     getMovie();
     getTrailer();
-  }, []);
+  }, [null]);
 
   const getMovie = async () => {
     const getMovie = await fetch(
@@ -32,6 +34,7 @@ const MovieDetail = match => {
   };
 
   const {
+    id,
     title,
     genres,
     original_title,
@@ -130,16 +133,23 @@ const MovieDetail = match => {
           </h4>
           <h4>Plot</h4>
           <p className='overview second-text'>{overview}</p>
-          <div>
-            <h3>Trailer</h3>
-            <iframe
-              key={trailers.id}
-              width='560'
-              height='315'
-              src={`https://www.youtube.com/embed/${trailers.key}`}
-              allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
-            ></iframe>
-          </div>
+          {trailers.key !== undefined ? (
+            <div>
+              <h3>Trailer</h3>
+              <iframe
+                key={trailers.id}
+                width='560'
+                height='315'
+                src={`https://www.youtube.com/embed/${trailers.key}`}
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
+              ></iframe>
+            </div>
+          ) : null}
+          <Link to={`${id}/screenshots`}>
+            <button type='button' className='btn btn-lg btn-outline-primary'>
+              Screenshots
+            </button>
+          </Link>
         </div>
       </div>
     </div>

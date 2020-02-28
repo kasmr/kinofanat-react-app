@@ -52,6 +52,10 @@ code {
   margin: 0;
 }
 
+.home-heading {
+  text-align: center;
+}
+
 .home {
   position: relative;
   margin: 2rem;
@@ -75,6 +79,10 @@ code {
     .movie-info {
       h4 {
         font-size: 1.1rem;
+      }
+
+      p {
+        padding: 0 1.5rem;
       }
     }
 
