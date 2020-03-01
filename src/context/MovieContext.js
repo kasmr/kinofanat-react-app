@@ -18,13 +18,21 @@ export const MovieProvider = props => {
     getMovies();
   }, []);
 
+  //MovieDetailState
+
+  const [movie, setMovie] = useState([]);
+
+  //CastAndCrewState
+
+  const [cast, setCast] = useState([]);
+  const [crew, setCrew] = useState([]);
+
   //ScreenshotsState
 
   const [screenshots, setScreenshots] = useState([]);
 
-  //MovieDetailState
-
-  const [movie, setMovie] = useState([]);
+  //ReviewsState
+  const [reviews, setReviews] = useState([]);
 
   //TrailerState
 
@@ -56,7 +64,13 @@ export const MovieProvider = props => {
         trailers,
         setTrailers,
         screenshots,
-        setScreenshots
+        setScreenshots,
+        cast,
+        setCast,
+        crew,
+        setCrew,
+        reviews,
+        setReviews
       }}
     >
       {props.children}

@@ -2,9 +2,7 @@ import React, { useContext } from 'react';
 import { MovieContext } from '../../context/MovieContext';
 
 const Search = () => {
-  const { search, setSearch, setMovies, setAlert, alert } = useContext(
-    MovieContext
-  );
+  const { search, setSearch, setMovies, setAlert } = useContext(MovieContext);
 
   const searchMovies = async e => {
     e.preventDefault();

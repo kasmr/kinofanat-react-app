@@ -8,6 +8,8 @@ import { MovieProvider } from './context/MovieContext';
 import Alert from './components/Alert';
 import NotFound from './pages/NotFound';
 import Screenshots from './components/movieInfo/Screenshots';
+import Cast from './components/movieInfo/Cast';
+import Reviews from './components/movieInfo/Reviews';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
             <Route exact path='/about' component={About} />
             <Route exact path='/movie/:id' component={MovieDetail} />
             <Route path='/movie/:id/screenshots' component={Screenshots} />
+            <Route path='/movie/:id/cast' component={Cast} />
+            <Route path='/movie/:id/reviews' component={Reviews} />
             <Route component={NotFound} />
           </Switch>
         </div>

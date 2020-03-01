@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../../context/MovieContext';
 import { Link } from 'react-router-dom';
 import '../../movieDetails.scss';
-import Screenshots from './Screenshots';
 
 const MovieDetail = match => {
   const { movie, setMovie, trailers, setTrailers } = useContext(MovieContext);
@@ -10,7 +9,11 @@ const MovieDetail = match => {
   useEffect(() => {
     getMovie();
     getTrailer();
-  }, [null]);
+
+    return () => {
+      setTrailers([]);
+    };
+  }, []);
 
   const getMovie = async () => {
     const getMovie = await fetch(
@@ -32,6 +35,8 @@ const MovieDetail = match => {
       result.type === 'Trailer' ? setTrailers(result) : null
     );
   };
+
+  console.log(trailers);
 
   const {
     id,
@@ -65,6 +70,7 @@ const MovieDetail = match => {
           <img
             className='poster'
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+            alt='#'
           />
         )}
         <div className='content'>
@@ -104,6 +110,7 @@ const MovieDetail = match => {
                   <li className='prod-company' key={company.id}>
                     <img
                       src={`https://image.tmdb.org/t/p/w200${company.logo_path}`}
+                      alt='#'
                     />
                   </li>
                 ))}
@@ -117,7 +124,7 @@ const MovieDetail = match => {
           {movie.homepage ? (
             <h4>
               Homepage of the movie: {''}
-              <a href={homepage} target='_blank'>
+              <a href={homepage} target='_blank' rel='noopener noreferrer'>
                 {homepage}
               </a>
             </h4>
@@ -133,6 +140,29 @@ const MovieDetail = match => {
           </h4>
           <h4>Plot</h4>
           <p className='overview second-text'>{overview}</p>
+          <div className='links-group'>
+            <Link to={`${id}/screenshots`}>
+              <button type='button' className='btn btn-lg btn-outline-primary'>
+                <i className='fas fa-images'></i>
+                Screenshots
+              </button>
+            </Link>
+            <Link to={`${id}/cast`}>
+              <button type='button' className='btn btn-lg btn-outline-success'>
+                <i className='fas fa-users'></i>
+                Cast of the movie
+              </button>
+            </Link>
+            <Link to={`${id}/reviews`}>
+              <button
+                type='button'
+                className='btn btn-lg btn-outline-warning review-btn'
+              >
+                <i className='fas fa-comment-alt'></i>
+                Reviews
+              </button>
+            </Link>
+          </div>
           {trailers.key !== undefined ? (
             <div>
               <h3>Trailer</h3>
@@ -141,15 +171,12 @@ const MovieDetail = match => {
                 width='560'
                 height='315'
                 src={`https://www.youtube.com/embed/${trailers.key}`}
-                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen'
+                allow='accelerometer; autoplay; encrypted-media; 
+                gyroscope; picture-in-picture; fullscreen'
+                title='trailer'
               ></iframe>
             </div>
           ) : null}
-          <Link to={`${id}/screenshots`}>
-            <button type='button' className='btn btn-lg btn-outline-primary'>
-              Screenshots
-            </button>
-          </Link>
         </div>
       </div>
     </div>
