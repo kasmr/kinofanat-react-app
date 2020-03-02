@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { MovieContext } from '../../context/MovieContext';
+import { MovieContext } from '../context/MovieContext';
 import '../../movieDetails.scss';
 
 const Screenshots = match => {
@@ -20,20 +20,36 @@ const Screenshots = match => {
 
   return (
     <div className='screenshots-container container-fluid'>
-      {screenshots.map(screenshot => (
-        <a
-          href={`https://image.tmdb.org/t/p/original${screenshot.file_path}`}
-          target='_blank'
-          rel='noopener noreferrer'
+      {screenshots.length !== 0 ? (
+        screenshots.map(screenshot => (
+          <a
+            href={`https://image.tmdb.org/t/p/original${screenshot.file_path}`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <img
+              key={screenshot.file_path}
+              className='screenshot'
+              src={`https://image.tmdb.org/t/p/w400${screenshot.file_path}`}
+              alt='#'
+            />
+          </a>
+        ))
+      ) : (
+        <h1
+          className='text-center position-absolute'
+          style={{
+            margin: 'auto',
+            color: '#b10101',
+            top: '50%',
+            bottom: '0',
+            left: '0',
+            right: '0'
+          }}
         >
-          <img
-            key={screenshot.file_path}
-            className='screenshot'
-            src={`https://image.tmdb.org/t/p/w400${screenshot.file_path}`}
-            alt='#'
-          />
-        </a>
-      ))}
+          Unfortunately there are no any screenshots of certain film...
+        </h1>
+      )}
     </div>
   );
 };

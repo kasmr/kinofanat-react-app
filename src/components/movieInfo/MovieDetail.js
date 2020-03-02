@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { MovieContext } from '../../context/MovieContext';
+import { MovieContext } from '../context/MovieContext';
 import { Link } from 'react-router-dom';
 import '../../movieDetails.scss';
 
@@ -66,12 +66,14 @@ const MovieDetail = match => {
       }}
     >
       <div className='movieDetails'>
-        {poster_path && (
+        {poster_path !== null ? (
           <img
             className='poster'
             src={`https://image.tmdb.org/t/p/w500${poster_path}`}
             alt='#'
           />
+        ) : (
+          <img alt='poster' src='/images/poster.jpg' />
         )}
         <div className='content'>
           <h1 style={{ marginBottom: '0' }}>{title}</h1>

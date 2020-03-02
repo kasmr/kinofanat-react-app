@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { MovieContext } from '../../context/MovieContext';
+import { MovieContext } from '../context/MovieContext';
 
 const Cast = match => {
   const { cast, setCast, crew, setCrew } = useContext(MovieContext);
@@ -29,14 +29,14 @@ const Cast = match => {
                 alt='#'
               />
             ) : (
-              <img src='/images/2.png' alt='#' />
+              <img src='/images/1.jpg' alt='#' />
             )}
             <h4>{person.name}</h4>
             <p className='second-text'>Character: {person.character}</p>
           </div>
         ))}
       </div>
-      <h1>Crew of the film:</h1>
+      <h1 className='text-center mt-3'>Crew of the film:</h1>
       <div className='row'>
         {crew.map(person => (
           <div className='col cast' key={person.credit_id}>
@@ -46,7 +46,7 @@ const Cast = match => {
                 alt='#'
               />
             ) : (
-              <img src='/images/2.png' alt='#' />
+              <img src='/images/1.jpg' alt='#' />
             )}
             <h4>{person.name}</h4>
             <p className='second-text'>Job: {person.job}</p>

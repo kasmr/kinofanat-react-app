@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MovieContext } from '../../context/MovieContext';
+import { MovieContext } from '../context/MovieContext';
 
 const Search = () => {
   const { search, setSearch, setMovies, setAlert } = useContext(MovieContext);

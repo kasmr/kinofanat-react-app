@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { MovieContext } from '../../context/MovieContext';
+import { MovieContext } from '../context/MovieContext';
 
 const Cast = match => {
   const { reviews, setReviews } = useContext(MovieContext);
@@ -44,8 +44,15 @@ const Cast = match => {
         </div>
       ) : (
         <h1
-          className='text-center'
-          style={{ marginTop: '20rem', color: '#b10101' }}
+          className='text-center position-absolute'
+          style={{
+            margin: 'auto',
+            color: '#b10101',
+            top: '50%',
+            bottom: '0',
+            left: '0',
+            right: '0'
+          }}
         >
           Unfortunately there are no any reviews about certain film...
         </h1>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
+import Home from './components/pages/Home';
+import About from './components/pages/About';
 import Navbar from './components/layout/Navbar';
 import MovieDetail from './components/movieInfo/MovieDetail';
-import { MovieProvider } from './context/MovieContext';
+import { MovieProvider } from './components/context/MovieContext';
 import Alert from './components/Alert';
-import NotFound from './pages/NotFound';
+import NotFound from './components/pages/NotFound';
 import Screenshots from './components/movieInfo/Screenshots';
 import Cast from './components/movieInfo/Cast';
 import Reviews from './components/movieInfo/Reviews';

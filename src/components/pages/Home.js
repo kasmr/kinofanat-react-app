@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import { Link } from 'react-router-dom';
-import '../index.scss';
+import '../../index.scss';
 
 const Home = () => {
   const { movies } = useContext(MovieContext);
@@ -13,10 +13,14 @@ const Home = () => {
         {movies.map(movie => (
           <div className='movie-card' key={movie.id}>
             <Link to={`/movie/${movie.id}`}>
-              <img
-                alt='poster'
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              />
+              {movie.poster_path !== null ? (
+                <img
+                  alt='poster'
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                />
+              ) : (
+                <img alt='poster' src='/images/poster.jpg' />
+              )}
             </Link>
             <div>
               <div className='movie-info'>
