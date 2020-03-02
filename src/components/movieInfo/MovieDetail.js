@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import '../../movieDetails.scss';
 
 const MovieDetail = match => {
+  const movieId = match.match.params.id;
+
   const { movie, setMovie, trailers, setTrailers } = useContext(MovieContext);
 
   useEffect(() => {
     getMovie();
     getTrailer();
-
     return () => {
       setTrailers([]);
     };
@@ -17,17 +18,16 @@ const MovieDetail = match => {
 
   const getMovie = async () => {
     const getMovie = await fetch(
-      `https://api.themoviedb.org/3/movie/${match.match.params.id}?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=35f31bc5ec65018dd8090674c49fe3d2`
     );
 
     const movie = await getMovie.json();
     setMovie(movie);
-    console.log(movie);
   };
 
   const getTrailer = async () => {
     const getTrailer = await fetch(
-      `https://api.themoviedb.org/3/movie/${match.match.params.id}/videos?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=35f31bc5ec65018dd8090674c49fe3d2`
     );
 
     const data = await getTrailer.json();
@@ -35,8 +35,6 @@ const MovieDetail = match => {
       result.type === 'Trailer' ? setTrailers(result) : null
     );
   };
-
-  console.log(trailers);
 
   const {
     id,
