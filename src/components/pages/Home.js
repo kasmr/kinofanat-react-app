@@ -8,12 +8,15 @@ const Home = () => {
 
   return (
     <div>
-      {search.active !== true ? (
-        <h1 className='home-heading'>Movies Today</h1>
-      ) : (
-        <h1 className='home-heading'>These are your search results :</h1>
-      )}
-
+      {movies.length !== 0 ? (
+        <div>
+          {search.active !== true ? (
+            <h1 className='home-heading'>Movies Today</h1>
+          ) : (
+            <h1 className='home-heading'>These are your search results :</h1>
+          )}
+        </div>
+      ) : null}
       <div className='home'>
         {movies.map(movie => (
           <div className='movie-card' key={movie.id}>
