@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 const Cast = match => {
   const { cast, setCast, crew, setCrew, search } = useContext(MovieContext);
@@ -16,6 +16,7 @@ const Cast = match => {
     const data = await response.json();
     setCast(data.cast);
     setCrew(data.crew);
+    console.log(data.cast);
   };
 
   if (search.redirect === true) {
@@ -28,14 +29,17 @@ const Cast = match => {
       <div className='row pb-5'>
         {cast.map(person => (
           <div className='col cast' key={person.cast_id}>
-            {person.profile_path ? (
-              <img
-                src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
-                alt='#'
-              />
-            ) : (
-              <img src='/images/no_image.png' alt='#' />
-            )}
+            <Link to={`/person/${person.id}`}>
+              {' '}
+              {person.profile_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
+                  alt='#'
+                />
+              ) : (
+                <img src='/images/no_image.png' alt='#' />
+              )}
+            </Link>
             <h4>{person.name}</h4>
             <p className='second-text'>Character: {person.character}</p>
           </div>

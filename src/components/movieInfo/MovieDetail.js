@@ -52,7 +52,8 @@ const MovieDetail = match => {
     overview,
     production_companies,
     production_countries,
-    tagline
+    tagline,
+    backdrop_path
   } = movie;
 
   if (search.redirect === true) {
@@ -63,7 +64,7 @@ const MovieDetail = match => {
     <div
       className='background-image'
       style={{
-        backgroundImage: `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`,
+        backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'top center bottom'

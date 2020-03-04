@@ -10,6 +10,7 @@ import NotFound from './components/pages/NotFound';
 import Screenshots from './components/movieInfo/Screenshots';
 import Cast from './components/movieInfo/Cast';
 import Reviews from './components/movieInfo/Reviews';
+import Person from './components/personInfo/Person';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path='/movie/:id/screenshots' component={Screenshots} />
             <Route path='/movie/:id/cast' component={Cast} />
             <Route path='/movie/:id/reviews' component={Reviews} />
+            <Route path='/person/:id' component={Person} />
             <Route component={NotFound} />
           </Switch>
         </div>

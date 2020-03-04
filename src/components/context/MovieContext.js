@@ -47,6 +47,10 @@ export const MovieProvider = props => {
   });
   const [query, setQuery] = useState('');
 
+  //PersonState
+
+  const [person, setPerson] = useState({});
+
   //AlertState
 
   const [alert, setAlert] = useState('');
@@ -74,7 +78,9 @@ export const MovieProvider = props => {
         crew,
         setCrew,
         reviews,
-        setReviews
+        setReviews,
+        person,
+        setPerson
       }}
     >
       {props.children}
