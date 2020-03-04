@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
+import { Redirect } from 'react-router-dom';
 
 const Cast = match => {
-  const { reviews, setReviews } = useContext(MovieContext);
+  const { reviews, setReviews, search } = useContext(MovieContext);
 
   useEffect(() => {
     getReviews();
@@ -16,6 +17,10 @@ const Cast = match => {
     setReviews(data.results);
     console.log(data);
   };
+
+  if (search.redirect === true) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <div>

@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
+import { Redirect } from 'react-router-dom';
 
 const Cast = match => {
-  const { cast, setCast, crew, setCrew } = useContext(MovieContext);
+  const { cast, setCast, crew, setCrew, search } = useContext(MovieContext);
 
   useEffect(() => {
     getCast();
@@ -17,6 +18,10 @@ const Cast = match => {
     setCrew(data.crew);
   };
 
+  if (search.redirect === true) {
+    return <Redirect to='/' />;
+  }
+
   return (
     <div className='container-fluid'>
       <h1 className='text-center mt-3'>Cast of the film:</h1>
@@ -29,7 +34,7 @@ const Cast = match => {
                 alt='#'
               />
             ) : (
-              <img src='/images/1.jpg' alt='#' />
+              <img src='/images/no_image.png' alt='#' />
             )}
             <h4>{person.name}</h4>
             <p className='second-text'>Character: {person.character}</p>
@@ -46,7 +51,7 @@ const Cast = match => {
                 alt='#'
               />
             ) : (
-              <img src='/images/1.jpg' alt='#' />
+              <img src='/images/no_image.png' alt='#' />
             )}
             <h4>{person.name}</h4>
             <p className='second-text'>Job: {person.job}</p>

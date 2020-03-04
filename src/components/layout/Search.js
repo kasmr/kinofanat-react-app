@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Redirect } from 'react-router-dom';
 
 const Search = () => {
   const { search, setSearch, setMovies, setAlert } = useContext(MovieContext);
@@ -18,7 +17,18 @@ const Search = () => {
       );
       const data = await response.json();
       setMovies(data.results);
-      setSearch({ query: '', redirect: true });
+      if (data.results.length === 0) {
+        setAlert(
+          'There is no any results of what you are looking for... please check your spelling'
+        );
+        setTimeout(() => {
+          setAlert('');
+        }, 5000);
+      }
+      setSearch({ query: '', redirect: true, active: true });
+      setTimeout(() => {
+        setSearch({ redirect: false, active: true });
+      }, 1000);
     }
   };
 
@@ -26,9 +36,9 @@ const Search = () => {
     setSearch({ query: e.target.value });
   };
 
-  if (search.redirect === true) {
-    return <Redirect to='/' />;
-  }
+  // if (search.redirect === true) {
+  //   return <Redirect to='/' />;
+  // }
 
   return (
     <form

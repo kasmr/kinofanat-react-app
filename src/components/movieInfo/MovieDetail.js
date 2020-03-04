@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import '../../movieDetails.scss';
 
 const MovieDetail = match => {
   const movieId = match.match.params.id;
 
-  const { movie, setMovie, trailers, setTrailers } = useContext(MovieContext);
+  const { movie, setMovie, trailers, setTrailers, search } = useContext(
+    MovieContext
+  );
 
   useEffect(() => {
     getMovie();
@@ -53,6 +55,10 @@ const MovieDetail = match => {
     tagline
   } = movie;
 
+  if (search.redirect === true) {
+    return <Redirect to='/' />;
+  }
+
   return (
     <div
       className='background-image'
@@ -71,7 +77,7 @@ const MovieDetail = match => {
             alt='#'
           />
         ) : (
-          <img alt='poster' src='/images/poster.jpg' />
+          <img alt='poster' src='/images/no_poster.jpg' />
         )}
         <div className='content'>
           <h1 style={{ marginBottom: '0' }}>{title}</h1>

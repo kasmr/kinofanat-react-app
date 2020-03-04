@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import '../../movieDetails.scss';
+import { Redirect } from 'react-router-dom';
 
 const Screenshots = match => {
-  const { screenshots, setScreenshots } = useContext(MovieContext);
+  const { screenshots, setScreenshots, search } = useContext(MovieContext);
 
   useEffect(() => {
     getScreenShots();
@@ -17,6 +18,10 @@ const Screenshots = match => {
     setScreenshots(data.backdrops);
     console.log(data.backdrops);
   };
+
+  if (search.redirect === true) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <div className='screenshots-container container-fluid'>

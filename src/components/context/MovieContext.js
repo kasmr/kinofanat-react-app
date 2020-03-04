@@ -42,7 +42,8 @@ export const MovieProvider = props => {
 
   const [search, setSearch] = useState({
     query: '',
-    redirect: false
+    redirect: false,
+    active: false
   });
   const [query, setQuery] = useState('');
 
