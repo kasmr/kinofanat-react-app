@@ -39,7 +39,7 @@ const Person = match => {
       {profile_path !== null ? (
         <img src={`https://image.tmdb.org/t/p/w400${profile_path}`} alt='#' />
       ) : (
-        <img alt='poster' src='/images/no_image.jpg' />
+        <img alt='poster' src='/images/no_image.png' />
       )}
       <div className='content'>
         <h1 style={{ marginBottom: '0.3rem' }}>{name}</h1>
@@ -47,9 +47,11 @@ const Person = match => {
         <h4>
           Date of birth:{' '}
           <span className='second-text'>
-            {birthday
-              ? { birthday }
-              : 'Sorry, no information is available at this time'}
+            {birthday ? (
+              <h4>{birthday}</h4>
+            ) : (
+              'Sorry, no information is available at this time'
+            )}
           </span>
         </h4>
         {deathday && (
