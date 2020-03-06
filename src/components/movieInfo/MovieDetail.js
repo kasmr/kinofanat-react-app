@@ -78,7 +78,11 @@ const MovieDetail = match => {
             alt='#'
           />
         ) : (
-          <img alt='poster' src='/images/no_poster.jpg' />
+          <img
+            alt='poster'
+            src='/images/no_poster.jpg'
+            style={{ height: '100%' }}
+          />
         )}
         <div className='content'>
           <h1 style={{ marginBottom: '0' }}>{title}</h1>
@@ -167,6 +171,15 @@ const MovieDetail = match => {
               >
                 <i className='fas fa-comment-alt'></i>
                 Reviews
+              </button>
+            </Link>
+            <Link to={`${id}/similar`}>
+              <button
+                type='button'
+                className='btn btn-lg btn-outline-danger review-btn'
+              >
+                <i className='fas fa-film'></i>
+                Similar movies
               </button>
             </Link>
           </div>

@@ -54,7 +54,7 @@ const Person = match => {
 
   return (
     <div className='personDetails'>
-      {profile_path ? (
+      {profile_path !== undefined ? (
         <img src={`https://image.tmdb.org/t/p/w400${profile_path}`} alt='#' />
       ) : (
         <img alt='poster' src='/images/no_image.png' />

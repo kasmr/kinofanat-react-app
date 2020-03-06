@@ -59,6 +59,10 @@ export const MovieProvider = props => {
   const [personMovies, setPersonMovies] = useState([]);
   const [personCrew, setPersonCrew] = useState([]);
 
+  //SimilarMoviesState
+
+  const [similar, setSimilar] = useState([]);
+
   //AlertState
 
   const [alert, setAlert] = useState('');
@@ -93,7 +97,9 @@ export const MovieProvider = props => {
         setPersonMovies,
         personCrew,
         setPersonCrew,
-        resetHome
+        resetHome,
+        similar,
+        setSimilar
       }}
     >
       {props.children}
