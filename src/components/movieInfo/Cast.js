@@ -16,7 +16,6 @@ const Cast = match => {
     const data = await response.json();
     setCast(data.cast);
     setCrew(data.crew);
-    console.log(data.cast);
   };
 
   if (search.redirect === true) {
@@ -49,14 +48,16 @@ const Cast = match => {
       <div className='row'>
         {crew.map(person => (
           <div className='col cast' key={person.credit_id}>
-            {person.profile_path ? (
-              <img
-                src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
-                alt='#'
-              />
-            ) : (
-              <img src='/images/no_image.png' alt='#' />
-            )}
+            <Link to={`/person/${person.id}`}>
+              {person.profile_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
+                  alt='#'
+                />
+              ) : (
+                <img src='/images/no_image.png' alt='#' />
+              )}
+            </Link>
             <h4>{person.name}</h4>
             <p className='second-text'>Job: {person.job}</p>
             <p className='second-text'>Department: {person.department}</p>

@@ -50,6 +50,7 @@ export const MovieProvider = props => {
   //PersonState
 
   const [person, setPerson] = useState({});
+  const [personMovies, setPersonMovies] = useState([]);
 
   //AlertState
 
@@ -80,7 +81,9 @@ export const MovieProvider = props => {
         reviews,
         setReviews,
         person,
-        setPerson
+        setPerson,
+        personMovies,
+        setPersonMovies
       }}
     >
       {props.children}
