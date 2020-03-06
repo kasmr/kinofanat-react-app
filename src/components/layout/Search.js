@@ -28,7 +28,7 @@ const Search = () => {
       setSearch({ query: '', redirect: true, active: true });
       setTimeout(() => {
         setSearch({ redirect: false, active: true });
-      }, 1000);
+      }, 100);
     }
   };
 

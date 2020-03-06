@@ -18,6 +18,12 @@ export const MovieProvider = props => {
     getMovies();
   }, []);
 
+  //HomeReset
+  const resetHome = () => {
+    getMovies();
+    setSearch({ active: false });
+  };
+
   //MovieDetailState
 
   const [movie, setMovie] = useState([]);
@@ -86,7 +92,8 @@ export const MovieProvider = props => {
         personMovies,
         setPersonMovies,
         personCrew,
-        setPersonCrew
+        setPersonCrew,
+        resetHome
       }}
     >
       {props.children}
