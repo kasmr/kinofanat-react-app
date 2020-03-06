@@ -26,23 +26,29 @@ const Cast = match => {
     <div className='container-fluid'>
       <h1 className='text-center mt-3'>Cast of the film:</h1>
       <div className='row pb-5'>
-        {cast.map(person => (
-          <div className='col cast' key={person.cast_id}>
-            <Link to={`/person/${person.id}`}>
-              {' '}
-              {person.profile_path ? (
-                <img
-                  src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
-                  alt='#'
-                />
-              ) : (
-                <img src='/images/no_image.png' alt='#' />
-              )}
-            </Link>
-            <h4>{person.name}</h4>
-            <p className='second-text'>Character: {person.character}</p>
-          </div>
-        ))}
+        {cast.length !== 0 ? (
+          cast.map(person => (
+            <div className='col cast' key={person.cast_id}>
+              <Link to={`/person/${person.id}`}>
+                {' '}
+                {person.profile_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200${person.profile_path}`}
+                    alt='#'
+                  />
+                ) : (
+                  <img src='/images/no_image.png' alt='#' />
+                )}
+              </Link>
+              <h4>{person.name}</h4>
+              <p className='second-text'>Character: {person.character}</p>
+            </div>
+          ))
+        ) : (
+          <h4 className='second-text w-100 text-center my-5'>
+            There is no any information about the cast...
+          </h4>
+        )}
       </div>
       <h1 className='text-center mt-3'>Crew of the film:</h1>
       <div className='row'>

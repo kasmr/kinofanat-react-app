@@ -9,7 +9,9 @@ const Person = match => {
     person,
     setPerson,
     personMovies,
-    setPersonMovies
+    setPersonMovies,
+    personCrew,
+    setPersonCrew
   } = useContext(MovieContext);
 
   useEffect(() => {
@@ -31,7 +33,8 @@ const Person = match => {
     );
     const data = await response.json();
     setPersonMovies(data.cast);
-    console.log(data.cast);
+    setPersonCrew(data.crew);
+    console.log(data.crew);
   };
 
   const {
@@ -98,40 +101,88 @@ const Person = match => {
           )}
         </h4>
         <h4>Filmography:</h4>
-        <div>
-          <table className='table table-bordered table-light table-hover table-striped'>
-            <thead className='thead-dark'>
-              <tr>
-                <th scope='col'>#</th>
-                <th scope='col'>Movie title</th>
-                <th scope='col'>Character</th>
-                <th scope='col'>Release date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {personMovies &&
-                personMovies
-                  .sort((a, b) => (a.release_date > b.release_date ? -1 : 1))
-                  .map((movie, index) => (
-                    <tr key={movie.credit_id}>
-                      <th scope='row'>{index + 1}</th>
-                      <td>
-                        <Link
-                          to={`/movie/${movie.id}`}
-                          style={{ color: 'black' }}
-                        >
-                          {movie.title}
-                        </Link>
-                      </td>
-                      <td>{movie.character ? movie.character : 'Unknown'}</td>
-                      <td>
-                        {movie.release_date ? movie.release_date : 'Unknown'}
-                      </td>
-                    </tr>
-                  ))}
-            </tbody>
-          </table>
-        </div>
+        <h4 className='text-center text-uppercase'>As an actor</h4>
+        {personMovies.length !== 0 ? (
+          <div>
+            <table className='table table-bordered table-light table-hover table-striped'>
+              <thead className='thead-dark'>
+                <tr>
+                  <th scope='col'>#</th>
+                  <th scope='col'>Movie title</th>
+                  <th scope='col'>Character</th>
+                  <th scope='col'>Release date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {personMovies &&
+                  personMovies
+                    .sort((a, b) => (a.release_date > b.release_date ? -1 : 1))
+                    .map((movie, index) => (
+                      <tr key={movie.credit_id}>
+                        <th scope='row'>{index + 1}</th>
+                        <td>
+                          <Link
+                            to={`/movie/${movie.id}`}
+                            style={{ color: 'black' }}
+                          >
+                            {movie.title}
+                          </Link>
+                        </td>
+                        <td>{movie.character ? movie.character : 'Unknown'}</td>
+                        <td>
+                          {movie.release_date ? movie.release_date : 'Unknown'}
+                        </td>
+                      </tr>
+                    ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <span className='second-text'>
+            Sorry, no information is available at this time
+          </span>
+        )}
+        <h4 className='text-center text-uppercase'>As a crew member</h4>
+        {personCrew.length !== 0 ? (
+          <div>
+            <table className='table table-bordered table-light table-hover table-striped'>
+              <thead className='thead-dark'>
+                <tr>
+                  <th scope='col'>#</th>
+                  <th scope='col'>Movie title</th>
+                  <th scope='col'>Job</th>
+                  <th scope='col'>Release date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {personCrew &&
+                  personCrew
+                    .sort((a, b) => (a.release_date > b.release_date ? -1 : 1))
+                    .map((movie, index) => (
+                      <tr key={movie.credit_id}>
+                        <th scope='row'>{index + 1}</th>
+                        <td>
+                          <Link
+                            to={`/movie/${movie.id}`}
+                            style={{ color: 'black' }}
+                          >
+                            {movie.title}
+                          </Link>
+                        </td>
+                        <td>{movie.job ? movie.job : 'Unknown'}</td>
+                        <td>
+                          {movie.release_date ? movie.release_date : 'Unknown'}
+                        </td>
+                      </tr>
+                    ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <span className='second-text'>
+            Sorry, no information is available at this time
+          </span>
+        )}
       </div>
     </div>
   );
