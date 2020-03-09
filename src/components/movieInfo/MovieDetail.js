@@ -107,13 +107,7 @@ const MovieDetail = match => {
               ))}
           </ul>
           {production_companies && <h4>Production companies:</h4>}
-          <ul
-            className='companies'
-            style={{
-              gridTemplateColumns: `repeat(${production_companies &&
-                production_companies.length}, 1fr)`
-            }}
-          >
+          <ul className='companies'>
             {production_companies &&
               production_companies
                 .filter(company => company.logo_path !== null)

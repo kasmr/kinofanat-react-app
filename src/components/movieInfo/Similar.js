@@ -40,8 +40,8 @@ const Similar = match => {
                   <img src='/images/no_poster.jpg' alt='#' />
                 )}
               </Link>
-              <h4>{movie.title}</h4>
-              <p className='second-text'>{movie.release_date}</p>
+              <p>{movie.title}</p>
+              <p className='second-text'>{movie.release_date.substr(0, 4)}</p>
             </div>
           ))
         ) : (

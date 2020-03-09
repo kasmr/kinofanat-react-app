@@ -35,7 +35,7 @@ const Screenshots = match => {
             <img
               key={screenshot.file_path}
               className='screenshot'
-              src={`https://image.tmdb.org/t/p/w300${screenshot.file_path}`}
+              src={`https://image.tmdb.org/t/p/w400${screenshot.file_path}`}
               alt='#'
             />
           </a>

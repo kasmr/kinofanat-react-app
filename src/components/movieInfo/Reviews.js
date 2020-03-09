@@ -23,30 +23,20 @@ const Cast = match => {
   }
 
   return (
-    <div>
+    <div class='card-deck flex-column m-0'>
+      <h1 className='text-center mt-3'>Reviews</h1>
       {reviews.length !== 0 ? (
-        <div className='container-fluid'>
-          <h1 className='text-center mt-3'>Reviews</h1>
-          <div className=' container-fluid d-block p-3'>
-            {reviews &&
-              reviews.map((review, index) => (
-                <div
-                  key={review.id}
-                  className='card p-3 text-left text-dark w-75 my-5 mx-auto'
-                >
-                  <h4 className='mx-auto mb-3'>Review #{index + 1}</h4>
-
-                  <blockquote className='blockquote mb-0'>
-                    <p className='p-5'>{review.content}</p>
-                    <h4 className='text-dark mt-5'>
-                      Written by:{' '}
-                      <cite title='Source Title'>{review.author}</cite>
-                    </h4>
-                  </blockquote>
-                </div>
-              ))}
+        reviews.map((review, index) => (
+          <div className='card text-dark mx-5 my-4' key={review.id}>
+            <div class='card-body'>
+              <h4 class='card-title'>Written by: {review.author}</h4>
+              <p class='card-text'>{review.content}</p>
+            </div>
+            <div class='card-footer'>
+              <small class='text-muted'>Review #{index + 1}</small>
+            </div>
           </div>
-        </div>
+        ))
       ) : (
         <h1
           className='text-center position-absolute'
