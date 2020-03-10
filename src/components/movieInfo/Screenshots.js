@@ -4,7 +4,9 @@ import '../../movieDetails.scss';
 import { Redirect } from 'react-router-dom';
 
 const Screenshots = match => {
-  const { screenshots, setScreenshots, search } = useContext(MovieContext);
+  const { screenshots, setScreenshots, search, lang } = useContext(
+    MovieContext
+  );
 
   useEffect(() => {
     getScreenShots();
@@ -28,6 +30,7 @@ const Screenshots = match => {
       {screenshots.length !== 0 ? (
         screenshots.map(screenshot => (
           <a
+            key={screenshot.file_path}
             href={`https://image.tmdb.org/t/p/original${screenshot.file_path}`}
             target='_blank'
             rel='noopener noreferrer'
@@ -52,7 +55,9 @@ const Screenshots = match => {
             right: '0'
           }}
         >
-          Unfortunately there are no any screenshots of certain film...
+          {lang === 'en-US'
+            ? 'Unfortunately there are no any screenshots of certain film...'
+            : 'К сожалению, у данного фильма нет скриншотов...'}
         </h1>
       )}
     </div>

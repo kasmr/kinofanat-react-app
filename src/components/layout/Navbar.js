@@ -8,12 +8,12 @@ const Navbar = () => {
     backgroundImage: 'linear-gradient(to left, #434343 0%, black 100%)'
   };
 
-  const { resetHome } = useContext(MovieContext);
+  const { resetHome, lang } = useContext(MovieContext);
 
   return (
     <nav
       style={navStyle}
-      className='navbar navbar-expand-lg navbar-dark flex justify-content-lg-between'
+      className='navbar sticky-top navbar-dark flex justify-content-lg-between'
     >
       <NavLink to='/'>
         <div
@@ -28,12 +28,12 @@ const Navbar = () => {
       <ul className='nav justify-content-end '>
         <li className='nav-item' onClick={resetHome}>
           <NavLink className='nav-link text-light' to='/'>
-            Home
+            {lang === 'en-US' ? 'Home' : 'Главная'}
           </NavLink>
         </li>
         <li className='nav-item'>
           <NavLink className='nav-link text-light' to='/about'>
-            About
+            {lang === 'en-US' ? 'About' : 'О нас'}
           </NavLink>
         </li>
       </ul>

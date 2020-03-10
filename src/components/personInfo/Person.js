@@ -11,17 +11,18 @@ const Person = match => {
     personMovies,
     setPersonMovies,
     personCrew,
-    setPersonCrew
+    setPersonCrew,
+    lang
   } = useContext(MovieContext);
 
   useEffect(() => {
     getPerson();
     getPersonMovies();
-  }, []);
+  }, [lang]);
 
   const getPerson = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/person/${match.match.params.id}?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+      `https://api.themoviedb.org/3/person/${match.match.params.id}?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
     );
     const data = await response.json();
     setPerson(data);
@@ -29,12 +30,11 @@ const Person = match => {
 
   const getPersonMovies = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/person/${match.match.params.id}/movie_credits?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+      `https://api.themoviedb.org/3/person/${match.match.params.id}/movie_credits?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
     );
     const data = await response.json();
     setPersonMovies(data.cast);
     setPersonCrew(data.crew);
-    console.log(data.crew);
   };
 
   const {
@@ -63,54 +63,67 @@ const Person = match => {
         <h1 style={{ marginBottom: '0.3rem' }}>{name}</h1>
         {also_known_as && <h4 className='second-text'>{also_known_as[0]}</h4>}
         <h4>
-          Date of birth:{' '}
+          {lang === 'en-US' ? 'Date of birth:' : 'Дата рождения: '}
           {birthday ? (
             <span className='second-text'>{birthday}</span>
           ) : (
             <span className='second-text'>
-              Sorry, no information is available at this time
+              {lang === 'en-US'
+                ? 'Sorry, no information is available at this time'
+                : 'К сожалению, информация отсутсвует...'}
             </span>
           )}
         </h4>
         {deathday && (
           <h4>
-            Date of death: <span className='second-text'>{deathday}</span>
+            {lang === 'en-US' ? 'Date of death:' : 'Дата смерти: '}
+            <span className='second-text'>{deathday}</span>
           </h4>
         )}
         <h4>
-          Place of birth:{' '}
+          {lang === 'en-US' ? 'Place of birth:' : 'Место рождения: '}
           {place_of_birth ? (
             <span className='second-text'>{place_of_birth}</span>
           ) : (
             <span className='second-text'>
-              Sorry, no information is available at this time
+              {lang === 'en-US'
+                ? 'Sorry, no information is available at this time'
+                : 'К сожалению, информация отсутсвует...'}
             </span>
           )}
         </h4>
         <p>{biography}</p>
         <h4>
-          Personal website:{' '}
+          {lang === 'en-US' ? 'Personal website:' : 'Веб-сайт: '}
           {homepage ? (
             <a href={homepage} target='_blank' rel='noopener noreferrer'>
               {homepage}
             </a>
           ) : (
             <span className='second-text'>
-              Sorry, this person doesn't have a website
+              {lang === 'en-US'
+                ? 'Sorry, no information is available at this time'
+                : 'К сожалению, информация отсутсвует...'}
             </span>
           )}
         </h4>
-        <h4>Filmography:</h4>
-        <h4 className='text-center text-uppercase'>As an actor</h4>
+        <h4>{lang === 'en-US' ? 'Filmography:' : 'Фильмография: '}</h4>
+        <h4 className='text-center text-uppercase'>
+          {lang === 'en-US' ? 'As an actor:' : 'Актер :'}
+        </h4>
         {personMovies.length !== 0 ? (
           <div>
             <table className='table table-bordered table-light table-hover table-striped'>
               <thead className='thead-dark'>
                 <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Movie title</th>
-                  <th scope='col'>Character</th>
-                  <th scope='col'>Release date</th>
+                  <th scope='col'>№</th>
+                  <th scope='col'>
+                    {lang === 'en-US' ? 'Movie title' : 'Название'}
+                  </th>
+                  <th scope='col'>{lang === 'en-US' ? 'Character' : 'Роль'}</th>
+                  <th scope='col'>
+                    {lang === 'en-US' ? 'Release date' : 'Дата релиза'}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -139,19 +152,27 @@ const Person = match => {
           </div>
         ) : (
           <span className='second-text'>
-            Sorry, no information is available at this time
+            {lang === 'en-US'
+              ? 'Sorry, no information is available at this time'
+              : 'К сожалению, информация отсутсвует...'}
           </span>
         )}
-        <h4 className='text-center text-uppercase'>As a crew member</h4>
+        <h4 className='text-center text-uppercase'>
+          {lang === 'en-US' ? 'As a crew member: ' : 'Член съемочной группы :'}
+        </h4>
         {personCrew.length !== 0 ? (
           <div>
             <table className='table table-bordered table-light table-hover table-striped'>
               <thead className='thead-dark'>
                 <tr>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Movie title</th>
-                  <th scope='col'>Job</th>
-                  <th scope='col'>Release date</th>
+                  <th scope='col'>№</th>
+                  <th scope='col'>
+                    {lang === 'en-US' ? 'Movie title' : 'Название'}
+                  </th>
+                  <th scope='col'>{lang === 'en-US' ? 'Job' : 'Роль'}</th>
+                  <th scope='col'>
+                    {lang === 'en-US' ? 'Release date' : 'Дата релиза'}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -180,7 +201,9 @@ const Person = match => {
           </div>
         ) : (
           <span className='second-text'>
-            Sorry, no information is available at this time
+            {lang === 'en-US'
+              ? 'Sorry, no information is available at this time'
+              : 'К сожалению, информация отсутсвует...'}
           </span>
         )}
       </div>

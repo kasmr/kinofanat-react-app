@@ -4,16 +4,22 @@ import { Link } from 'react-router-dom';
 import '../../index.scss';
 
 const Home = () => {
-  const { movies, search } = useContext(MovieContext);
+  const { movies, search, lang } = useContext(MovieContext);
 
   return (
     <div>
       {movies.length !== 0 ? (
         <div>
           {search.active !== true ? (
-            <h1 className='home-heading'>Movies Today</h1>
+            <h1 className='home-heading'>
+              {lang === 'en-US' ? 'Movies Today' : 'Фильмы сегодня'}
+            </h1>
           ) : (
-            <h1 className='home-heading'>These are your search results :</h1>
+            <h1 className='home-heading'>
+              {lang === 'en-US'
+                ? 'These are your search results :'
+                : 'Результаты поиска:'}
+            </h1>
           )}
         </div>
       ) : null}
@@ -37,11 +43,11 @@ const Home = () => {
                 </Link>
 
                 <h4>
-                  Release Date: {movie.release_date}{' '}
-                  <i className='far fa-calendar-alt' />
+                  {movie.release_date}{' '}
+                  <i className='far fa-calendar-alt text-primary' />
                 </h4>
                 <h4>
-                  Average rating:{' '}
+                  {lang === 'en-US' ? 'Average rating: ' : 'Средний рейтинг : '}
                   <span
                     className={
                       movie.vote_average > 7.0 ? 'text-success' : 'text-warning'

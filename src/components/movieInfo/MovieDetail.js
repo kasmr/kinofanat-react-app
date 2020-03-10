@@ -6,7 +6,7 @@ import '../../movieDetails.scss';
 const MovieDetail = match => {
   const movieId = match.match.params.id;
 
-  const { movie, setMovie, trailers, setTrailers, search } = useContext(
+  const { movie, setMovie, trailers, setTrailers, search, lang } = useContext(
     MovieContext
   );
 
@@ -16,11 +16,11 @@ const MovieDetail = match => {
     return () => {
       setTrailers([]);
     };
-  }, []);
+  }, [lang]);
 
   const getMovie = async () => {
     const getMovie = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
     );
 
     const movie = await getMovie.json();
@@ -29,7 +29,7 @@ const MovieDetail = match => {
 
   const getTrailer = async () => {
     const getTrailer = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
     );
 
     const data = await getTrailer.json();
@@ -67,7 +67,8 @@ const MovieDetail = match => {
         backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        backgroundPosition: 'top center bottom'
+        backgroundPosition: 'top center bottom',
+        minHeight: '92.8vh'
       }}
     >
       <div className='movieDetails'>
@@ -86,9 +87,11 @@ const MovieDetail = match => {
         )}
         <div className='content'>
           <h1 style={{ marginBottom: '0' }}>{title}</h1>
-          {title === original_title ? null : <h4>{original_title}</h4>}
+          {title === original_title ? null : (
+            <h4 className='second-text'>{original_title}</h4>
+          )}
           <p className='second-text'>{tagline}</p>
-          <h4>Countries</h4>
+          <h4>{lang === 'en-US' ? 'Countries' : 'Страна производства'}</h4>
           <ul>
             {production_countries &&
               production_countries.map(country => (
@@ -97,7 +100,7 @@ const MovieDetail = match => {
                 </li>
               ))}
           </ul>
-          <h4>Genres</h4>
+          <h4>{lang === 'en-US' ? 'Genres' : 'Жанры'}</h4>
           <ul>
             {genres &&
               genres.map(genre => (
@@ -106,7 +109,11 @@ const MovieDetail = match => {
                 </li>
               ))}
           </ul>
-          {production_companies && <h4>Production companies:</h4>}
+          {production_companies && (
+            <h4>
+              {lang === 'en-US' ? 'Production companies' : 'Компания издатель'}
+            </h4>
+          )}
           <ul className='companies'>
             {production_companies &&
               production_companies
@@ -121,41 +128,47 @@ const MovieDetail = match => {
                 ))}
           </ul>
           <h4>
-            Duration: <span className='second-text'>{runtime} min</span>
+            {lang === 'en-US' ? 'Duration:' : 'Продолжительность:'}{' '}
+            <span className='second-text'>{runtime}</span>
           </h4>
           <h4>
-            Release date: <span className='second-text'>{release_date}</span>
+            {lang === 'en-US' ? 'Release date: ' : 'Дата релиза: '}{' '}
+            <span className='second-text'>{release_date}</span>
           </h4>
           {movie.homepage ? (
             <h4>
-              Homepage of the movie: {''}
+              {lang === 'en-US'
+                ? 'Homepage of the movie: '
+                : 'Веб-сайт фильма: '}
+              {''}
               <a href={homepage} target='_blank' rel='noopener noreferrer'>
                 {homepage}
               </a>
             </h4>
           ) : null}
           <h4>
-            Average rating:{' '}
+            {lang === 'en-US' ? 'Average rating: ' : 'Средний рейтинг : '}
             <span
               className={vote_average > 7.0 ? 'text-success' : 'text-warning'}
             >
               {vote_average}
             </span>{' '}
-            votes: <span className='second-text'>{vote_count}</span>
+            {lang === 'en-US' ? 'votes: ' : 'голосов : '}{' '}
+            <span className='second-text'>{vote_count}</span>
           </h4>
-          <h4>Plot</h4>
+          <h4>{lang === 'en-US' ? 'Plot: ' : 'Сюжет : '}</h4>
           <p className='overview second-text'>{overview}</p>
           <div className='links-group'>
             <Link to={`${id}/screenshots`}>
               <button type='button' className='btn btn-lg btn-outline-primary'>
                 <i className='fas fa-images'></i>
-                Screenshots
+                {lang === 'en-US' ? 'Screenshots' : 'Скриншоты'}
               </button>
             </Link>
             <Link to={`${id}/cast`}>
               <button type='button' className='btn btn-lg btn-outline-success'>
                 <i className='fas fa-users'></i>
-                Cast of the movie
+                {lang === 'en-US' ? 'Cast of the movie' : 'Cъемочная группа'}
               </button>
             </Link>
             <Link to={`${id}/reviews`}>
@@ -164,7 +177,7 @@ const MovieDetail = match => {
                 className='btn btn-lg btn-outline-warning review-btn'
               >
                 <i className='fas fa-comment-alt'></i>
-                Reviews
+                {lang === 'en-US' ? 'Reviews' : 'Рецензии'}
               </button>
             </Link>
             <Link to={`${id}/similar`}>
@@ -173,13 +186,15 @@ const MovieDetail = match => {
                 className='btn btn-lg btn-outline-danger review-btn'
               >
                 <i className='fas fa-film'></i>
-                Similar movies
+                {lang === 'en-US' ? 'Similar movies' : 'Рекомендации'}
               </button>
             </Link>
           </div>
           {trailers.key !== undefined ? (
             <div>
-              <h3>Trailer</h3>
+              <h3 className='mb-3'>
+                {lang === 'en-US' ? 'Trailer: ' : 'Трейлер: '}
+              </h3>
               <iframe
                 key={trailers.id}
                 width='560'

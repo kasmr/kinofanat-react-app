@@ -3,15 +3,15 @@ import { MovieContext } from '../context/MovieContext';
 import { Redirect, Link } from 'react-router-dom';
 
 const Similar = match => {
-  const { similar, setSimilar, search } = useContext(MovieContext);
+  const { similar, setSimilar, search, lang } = useContext(MovieContext);
 
   useEffect(() => {
     getSimilar();
-  }, []);
+  }, [lang]);
 
   const getSimilar = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${match.match.params.id}/similar?api_key=35f31bc5ec65018dd8090674c49fe3d2`
+      `https://api.themoviedb.org/3/movie/${match.match.params.id}/similar?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
     );
     const data = await response.json();
     setSimilar(data.results);
@@ -24,7 +24,9 @@ const Similar = match => {
 
   return (
     <div className='container-fluid'>
-      <h1 className='text-center mt-3'>Similar movies:</h1>
+      <h1 className='text-center mt-3'>
+        {lang === 'en-US' ? 'Similar movies:' : 'Похожие фильмы:'}
+      </h1>
       <div className='row pb-5'>
         {similar.length !== 0 ? (
           similar.map(movie => (
@@ -46,7 +48,9 @@ const Similar = match => {
           ))
         ) : (
           <h4 className='w-100 text-center my-5'>
-            There is no similar movies...
+            {lang === 'en-US'
+              ? 'Unfortunately There is no similar movies...'
+              : 'К сожалению, похожих фильмов нет...'}
           </h4>
         )}
       </div>

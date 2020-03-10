@@ -5,10 +5,19 @@ export const MovieContext = createContext();
 export const MovieProvider = props => {
   //MoviesState
   const [movies, setMovies] = useState([]);
+  const [lang, setLang] = useState('en-US');
+
+  const changeLang = () => {
+    if (lang === 'en-US') {
+      setLang('ru-RU');
+    } else {
+      setLang('en-US');
+    }
+  };
 
   const getMovies = async () => {
     const response = await fetch(
-      'https://api.themoviedb.org/3/movie/now_playing?api_key=35f31bc5ec65018dd8090674c49fe3d2&page=1'
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}&page=1`
     );
     const data = await response.json();
     setMovies(data.results);
@@ -16,7 +25,7 @@ export const MovieProvider = props => {
 
   useEffect(() => {
     getMovies();
-  }, []);
+  }, [lang]);
 
   //HomeReset
   const resetHome = () => {
@@ -99,7 +108,10 @@ export const MovieProvider = props => {
         setPersonCrew,
         resetHome,
         similar,
-        setSimilar
+        setSimilar,
+        lang,
+        setLang,
+        changeLang
       }}
     >
       {props.children}
