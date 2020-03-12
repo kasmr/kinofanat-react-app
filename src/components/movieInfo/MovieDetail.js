@@ -71,24 +71,26 @@ const MovieDetail = match => {
         minHeight: '92.8vh'
       }}
     >
-      <div className='movieDetails'>
-        {poster_path !== null ? (
-          <img
-            className='poster'
-            src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-            alt='#'
-          />
-        ) : (
-          <img
-            alt='poster'
-            src='/images/no_poster.jpg'
-            style={{ height: '100%' }}
-          />
-        )}
+      <div className='movieDetails d-flex'>
+        <div>
+          {poster_path !== null ? (
+            <img
+              className='poster'
+              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
+              alt='#'
+            />
+          ) : (
+            <img
+              alt='poster'
+              src='/images/no_poster.jpg'
+              style={{ height: '100%' }}
+            />
+          )}
+        </div>
         <div className='content'>
           <h1 style={{ marginBottom: '0' }}>{title}</h1>
           {title === original_title ? null : (
-            <h4 className='second-text'>{original_title}</h4>
+            <h1 className='second-text'>{original_title}</h1>
           )}
           <p className='second-text'>{tagline}</p>
           <h4>{lang === 'en-US' ? 'Countries' : 'Страна производства'}</h4>
@@ -192,9 +194,9 @@ const MovieDetail = match => {
           </div>
           {trailers.key !== undefined ? (
             <div>
-              <h3 className='mb-3'>
+              <h4 className='mb-3'>
                 {lang === 'en-US' ? 'Trailer: ' : 'Трейлер: '}
-              </h3>
+              </h4>
               <iframe
                 key={trailers.id}
                 width='560'
