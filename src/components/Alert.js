@@ -8,7 +8,7 @@ const Alert = () => {
     <>
       {alert ? (
         <div className='alert alert-search'>
-          <i></i> {alert}
+          <i className='fas fa-exclamation-circle'></i> {alert}
         </div>
       ) : null}
     </>
