@@ -94,7 +94,7 @@ const Person = match => {
         </h4>
         <p>{biography}</p>
         <h4>
-          {lang === 'en-US' ? 'Personal website:' : 'Веб-сайт: '}
+          {lang === 'en-US' ? 'Personal website: ' : 'Веб-сайт: '}
           {homepage ? (
             <a href={homepage} target='_blank' rel='noopener noreferrer'>
               {homepage}

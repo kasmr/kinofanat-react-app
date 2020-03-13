@@ -148,6 +148,7 @@ const MovieDetail = match => {
               </a>
             </h4>
           ) : null}
+
           <h4>
             {lang === 'en-US' ? 'Average rating: ' : 'Средний рейтинг : '}
             <span

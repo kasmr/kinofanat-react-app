@@ -13,11 +13,12 @@ const Navbar = () => {
   return (
     <nav
       style={navStyle}
-      className='navbar sticky-top navbar-dark flex justify-content-lg-between'
+      className='navbar sticky-top navbar-dark flex justify-content-lg-between p-0'
+      id='navbar'
     >
       <NavLink to='/'>
         <div
-          className='navbar-brand align-items-center'
+          className='navbar-brand align-items-center ml-5'
           href='#'
           onClick={resetHome}
         >
@@ -25,15 +26,17 @@ const Navbar = () => {
         </div>
       </NavLink>
       <Search />
-      <ul className='nav justify-content-end '>
+      <ul className='nav justify-content-end mr-lg-5'>
         <li className='nav-item' onClick={resetHome}>
           <NavLink className='nav-link text-light' to='/'>
-            {lang === 'en-US' ? 'Home' : 'Главная'}
+            <i className='fas fa-home'></i>
+            <p>{lang === 'en-US' ? 'Home' : 'Главная'}</p>
           </NavLink>
         </li>
         <li className='nav-item'>
           <NavLink className='nav-link text-light' to='/about'>
-            {lang === 'en-US' ? 'About' : 'О нас'}
+            <i className='fas fa-heart'></i>
+            <p>{lang === 'en-US' ? 'About' : 'О нас'}</p>
           </NavLink>
         </li>
       </ul>

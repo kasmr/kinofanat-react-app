@@ -1,27 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
+import { useToasts } from 'react-toast-notifications';
 
 const Search = () => {
-  const {
-    search,
-    setSearch,
-    setMovies,
-    setAlert,
-    lang,
-    changeLang
-  } = useContext(MovieContext);
+  const { search, setSearch, setMovies, lang, changeLang } = useContext(
+    MovieContext
+  );
+
+  const { addToast } = useToasts();
 
   const searchMovies = async e => {
     e.preventDefault();
-    if (search.query === '') {
-      setAlert(
+    if (search.query === '' || undefined) {
+      addToast(
         lang === 'en-US'
           ? 'Please enter something...'
-          : 'Пожалуйста, введите что-нибудь...'
+          : 'Пожалуйста, введите что-нибудь...',
+        { appearance: 'error', autoDismiss: true }
       );
-      setTimeout(() => {
-        setAlert('');
-      }, 5000);
     } else {
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}&query=${search.query}&include_adult=false`
@@ -29,18 +25,16 @@ const Search = () => {
       const data = await response.json();
       setMovies(data.results);
       if (data.results.length === 0) {
-        setAlert(
+        addToast(
           lang === 'en-US'
             ? 'There is no any results of what you are looking for... please check your spelling...'
-            : 'По данному запросу нет результатов... Пожалуйста, проверьте правописание...'
+            : 'По данному запросу нет результатов... Пожалуйста, проверьте правописание...',
+          { appearance: 'warning', autoDismiss: true }
         );
-        setTimeout(() => {
-          setAlert('');
-        }, 5000);
       }
       setSearch({ query: '', redirect: true, active: true });
       setTimeout(() => {
-        setSearch({ redirect: false, active: true });
+        setSearch({ query: '', redirect: false, active: true });
       }, 100);
     }
   };
@@ -49,17 +43,13 @@ const Search = () => {
     setSearch({ query: e.target.value });
   };
 
-  // if (search.redirect === true) {
-  //   return <Redirect to='/' />;
-  // }
-
   return (
     <form
-      className='form-inline justify-content-center w-75'
+      className='form-inline justify-content-center'
       onSubmit={searchMovies}
     >
       <button
-        className='btn btn-outline-primary active mr-2'
+        className='btn btn-outline-primary active mr-lg-2'
         type='button'
         onClick={changeLang}
       >
@@ -68,7 +58,7 @@ const Search = () => {
       <input
         className='form-control mr-sm-2 w-50'
         type='text'
-        value={search.query}
+        value={search.query || ''}
         placeholder={
           lang === 'en-US'
             ? 'Search for the movie, person, tv show...'
@@ -77,7 +67,7 @@ const Search = () => {
         onChange={updateSearch}
       />
       <button className='btn btn-outline-light my-2' type='submit'>
-        {lang === 'en-US' ? 'Search' : 'Поиск'}
+        <i className='fas fa-search'></i>
       </button>
     </form>
   );

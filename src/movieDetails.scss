@@ -123,6 +123,7 @@
   .movieDetails {
     flex-direction: column;
     padding: 1rem;
+    flex-wrap: wrap;
 
     h1 {
       font-size: 1.5rem;
@@ -151,8 +152,8 @@
       }
 
       .companies {
-        flex-direction: column;
-        align-self: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
       }
 
       .overview {
@@ -160,11 +161,20 @@
         font-size: 1rem;
       }
 
+      a {
+        font-size: 1rem;
+      }
+
+      .homepage {
+        display: block;
+      }
+
       .links-group {
         flex-direction: column;
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0;
 
         button {
           margin: 1rem auto;
@@ -176,7 +186,9 @@
       }
 
       iframe {
-        width: 100%;
+        display: block;
+        margin: auto;
+        width: 300px;
         height: 200px;
       }
     }
@@ -196,7 +208,7 @@
 
     img {
       border: 2px solid #000000;
-      width: 100%;
+      width: 300px;
       margin: 1rem;
     }
   }

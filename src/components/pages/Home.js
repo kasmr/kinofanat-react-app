@@ -47,7 +47,7 @@ const Home = () => {
                   <i className='far fa-calendar-alt text-primary' />
                 </h4>
                 <h4>
-                  {lang === 'en-US' ? 'Average rating: ' : 'Средний рейтинг : '}
+                  {lang === 'en-US' ? 'Average rating: ' : 'Средний рейтинг: '}
                   <span
                     className={
                       movie.vote_average > 7.0 ? 'text-success' : 'text-warning'

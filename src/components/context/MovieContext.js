@@ -13,6 +13,7 @@ export const MovieProvider = props => {
     } else {
       setLang('en-US');
     }
+    setSearch({ active: false });
   };
 
   const getMovies = async () => {
@@ -60,7 +61,6 @@ export const MovieProvider = props => {
     redirect: false,
     active: false
   });
-  const [query, setQuery] = useState('');
 
   //PersonState
 
@@ -72,10 +72,6 @@ export const MovieProvider = props => {
 
   const [similar, setSimilar] = useState([]);
 
-  //AlertState
-
-  const [alert, setAlert] = useState('');
-
   return (
     <MovieContext.Provider
       value={{
@@ -86,10 +82,6 @@ export const MovieProvider = props => {
         setMovie,
         search,
         setSearch,
-        query,
-        setQuery,
-        alert,
-        setAlert,
         trailers,
         setTrailers,
         screenshots,
