@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
-import Navbar from './components/layout/Navbar';
+import Navbar from './components/layout/NavbarApp';
 import MovieDetail from './components/movieInfo/MovieDetail';
 import { MovieProvider } from './components/context/MovieContext';
 import NotFound from './components/pages/NotFound';
