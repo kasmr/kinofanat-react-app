@@ -83,6 +83,19 @@
       }
     }
 
+    .homepage {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      padding: 0;
+      h4 {
+        margin: 1rem 0;
+      }
+      a {
+        font-size: 1.5rem;
+      }
+    }
+
     .review-btn:hover {
       color: #ffff;
     }
@@ -120,6 +133,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .background-image {
+    background-position: center;
+  }
+
   .movieDetails {
     flex-direction: column;
     padding: 1rem;
@@ -161,12 +178,16 @@
         font-size: 1rem;
       }
 
-      a {
-        font-size: 1rem;
-      }
-
       .homepage {
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
+        h4 {
+          margin: 1rem;
+        }
+        a {
+          margin: 0 1rem;
+          font-size: 1rem;
+        }
       }
 
       .links-group {
@@ -210,6 +231,38 @@
       border: 2px solid #000000;
       width: 300px;
       margin: 1rem;
+    }
+  }
+
+  .card-deck {
+    h1,
+    .no-reviews {
+      font-size: 1.5rem;
+    }
+    .card {
+      margin: 1rem;
+    }
+  }
+
+  #cast-container {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .similar {
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .cast {
+    img {
+      width: 100px;
+    }
+
+    h4 {
+      font-size: 1.2rem;
     }
   }
 }

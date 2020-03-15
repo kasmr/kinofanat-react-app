@@ -29,7 +29,7 @@ const Cast = match => {
       </h1>
       {reviews.length !== 0 ? (
         reviews.map((review, index) => (
-          <div className='card text-dark mx-5 my-4' key={review.id}>
+          <div className='card text-dark mx-lg-5 my-lg-4' key={review.id}>
             <div className='card-body'>
               <h4 className='card-title'>
                 {lang === 'en-US' ? 'Written by:' : 'Автор:'} {review.author}
@@ -46,7 +46,7 @@ const Cast = match => {
         ))
       ) : (
         <h1
-          className='text-center position-absolute'
+          className='text-center position-absolute no-reviews'
           style={{
             margin: 'auto',
             color: '#b10101',

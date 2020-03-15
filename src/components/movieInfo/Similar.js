@@ -23,7 +23,7 @@ const Similar = match => {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid similar'>
       <h1 className='text-center mt-3'>
         {lang === 'en-US' ? 'Similar movies:' : 'Похожие фильмы:'}
       </h1>

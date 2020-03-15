@@ -81,6 +81,7 @@ const MovieDetail = match => {
             />
           ) : (
             <img
+              className='poster'
               alt='poster'
               src='/images/no_poster.jpg'
               style={{ height: '100%' }}
@@ -137,16 +138,18 @@ const MovieDetail = match => {
             {lang === 'en-US' ? 'Release date: ' : 'Дата релиза: '}{' '}
             <span className='second-text'>{release_date}</span>
           </h4>
+
           {movie.homepage ? (
-            <h4>
-              {lang === 'en-US'
-                ? 'Homepage of the movie: '
-                : 'Веб-сайт фильма: '}
-              {''}
+            <div className='homepage container-fluid'>
+              <h4>
+                {lang === 'en-US'
+                  ? 'Homepage of the movie: '
+                  : 'Веб-сайт фильма: '}
+              </h4>
               <a href={homepage} target='_blank' rel='noopener noreferrer'>
                 {homepage}
               </a>
-            </h4>
+            </div>
           ) : null}
 
           <h4>

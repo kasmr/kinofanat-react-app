@@ -25,11 +25,11 @@ const Cast = match => {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid' id='cast-container'>
       <h1 className='text-center mt-3'>
         {lang === 'en-US' ? 'Cast of the film:' : 'Актерский состав:'}
       </h1>
-      <div className='row pb-5'>
+      <div className='row pb-lg-5'>
         {cast.length !== 0 ? (
           cast.map(person => (
             <div className='col cast' key={person.cast_id}>
