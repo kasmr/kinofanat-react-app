@@ -47,11 +47,21 @@ const Similar = match => {
             </div>
           ))
         ) : (
-          <h4 className='w-100 text-center my-5'>
+          <h1
+            className='text-center position-absolute no-reviews'
+            style={{
+              margin: 'auto',
+              color: '#b10101',
+              top: '50%',
+              bottom: '0',
+              left: '0',
+              right: '0'
+            }}
+          >
             {lang === 'en-US'
-              ? 'Unfortunately There is no similar movies...'
+              ? 'Unfortunately there are no any similar movies...'
               : 'К сожалению, похожих фильмов нет...'}
-          </h4>
+          </h1>
         )}
       </div>
     </div>

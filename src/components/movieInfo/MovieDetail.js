@@ -68,7 +68,7 @@ const MovieDetail = match => {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'top center bottom',
-        minHeight: '92.8vh'
+        minHeight: '94.4vh'
       }}
     >
       <div className='movieDetails d-flex'>

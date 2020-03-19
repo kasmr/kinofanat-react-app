@@ -60,9 +60,7 @@ const Search = () => {
         type='text'
         value={search.query || ''}
         placeholder={
-          lang === 'en-US'
-            ? 'Search for the movie, person, tv show...'
-            : 'Фильмы, Персоны, ТВ-шоу...'
+          lang === 'en-US' ? 'Search for the movie...' : 'Поиск по фильмам...'
         }
         onChange={updateSearch}
       />
