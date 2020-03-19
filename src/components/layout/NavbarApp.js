@@ -10,7 +10,7 @@ const NavbarApp = () => {
     backgroundColor: 'black'
   };
 
-  const { resetHome, lang } = useContext(MovieContext);
+  const { resetHome } = useContext(MovieContext);
 
   return (
     <Navbar
@@ -38,13 +38,11 @@ const NavbarApp = () => {
           <li className='nav-item' onClick={resetHome}>
             <NavLink className='nav-link text-light' to='/'>
               <i className='fas fa-home text-primary mx-1'></i>
-              {lang === 'en-US' ? 'Home' : 'Главная'}
             </NavLink>
           </li>
           <li className='nav-item'>
             <NavLink className='nav-link text-light' to='/about'>
               <i className='fas fa-heart text-danger mx-1'></i>
-              {lang === 'en-US' ? 'Favourites' : 'Избраное'}
             </NavLink>
           </li>
         </ul>

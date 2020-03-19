@@ -20,13 +20,11 @@
   }
 
   img {
-    position: relative;
     width: 400px;
     height: 600px;
   }
 
   .content {
-    padding: 0 7.5rem;
     line-height: 1.5;
 
     h1,
@@ -34,6 +32,40 @@
     p,
     div {
       margin-bottom: 2rem;
+    }
+  }
+}
+@media screen and (max-width: 1280px) {
+  .personDetails {
+    img {
+      width: 300px;
+      height: 450px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .personDetails {
+    display: flex;
+    flex-direction: column;
+
+    img {
+      width: 200px;
+      height: 300px;
+    }
+
+    .content {
+      padding: 0;
+
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      h4 {
+        font-size: 1.2rem;
+        margin: 1rem 0;
+      }
     }
   }
 }
