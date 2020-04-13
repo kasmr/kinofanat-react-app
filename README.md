@@ -3,6 +3,5 @@
 
 Demo: https://kinofanat.herokuapp.com/
 
-### `Work in progres... no mobile layout yet...`
-
+### `Work in progres...`
 
