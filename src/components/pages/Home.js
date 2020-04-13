@@ -24,7 +24,7 @@ const Home = () => {
         </div>
       ) : null}
       <div className='home'>
-        {movies.map(movie => (
+        {movies.map((movie) => (
           <div className='movie-card' key={movie.id}>
             <Link to={`/movie/${movie.id}`}>
               {movie.poster_path !== null ? (
@@ -56,11 +56,6 @@ const Home = () => {
                     {movie.vote_average}
                   </span>
                 </h4>
-                {movie.overview.length > 200 ? (
-                  <p>{movie.overview.slice(0, 200) + '...'}</p>
-                ) : (
-                  <p>{movie.overview}</p>
-                )}
               </div>
             </div>
           </div>

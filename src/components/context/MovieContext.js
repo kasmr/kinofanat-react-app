@@ -2,10 +2,10 @@ import React, { useState, createContext, useEffect } from 'react';
 
 export const MovieContext = createContext();
 
-export const MovieProvider = props => {
+export const MovieProvider = (props) => {
   //MoviesState
   const [movies, setMovies] = useState([]);
-  const [lang, setLang] = useState('en-US');
+  const [lang, setLang] = useState('ru-RU');
 
   const changeLang = () => {
     if (lang === 'en-US') {
@@ -59,7 +59,7 @@ export const MovieProvider = props => {
   const [search, setSearch] = useState({
     query: '',
     redirect: false,
-    active: false
+    active: false,
   });
 
   //PersonState
@@ -103,7 +103,7 @@ export const MovieProvider = props => {
         setSimilar,
         lang,
         setLang,
-        changeLang
+        changeLang,
       }}
     >
       {props.children}
