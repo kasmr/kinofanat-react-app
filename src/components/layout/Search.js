@@ -9,7 +9,7 @@ const Search = () => {
 
   const { addToast } = useToasts();
 
-  const searchMovies = async e => {
+  const searchMovies = async (e) => {
     e.preventDefault();
     if (search.query === '' || undefined) {
       addToast(
@@ -39,36 +39,61 @@ const Search = () => {
     }
   };
 
-  const updateSearch = e => {
+  const updateSearch = (e) => {
     setSearch({ query: e.target.value });
   };
 
-  return (
-    <form
-      className='form-inline justify-content-center'
-      onSubmit={searchMovies}
-    >
-      <button
-        className='btn btn-outline-primary active mr-lg-2'
-        type='button'
-        onClick={changeLang}
+  if (lang === 'en-US') {
+    return (
+      <form
+        className='form-inline justify-content-center'
+        onSubmit={searchMovies}
       >
-        {lang !== 'en-US' ? 'EN' : 'RU'}
-      </button>
-      <input
-        className='form-control mr-sm-2 w-50'
-        type='text'
-        value={search.query || ''}
-        placeholder={
-          lang === 'en-US' ? 'Search for the movie...' : 'Поиск по фильмам...'
-        }
-        onChange={updateSearch}
-      />
-      <button className='btn btn-outline-light my-2' type='submit'>
-        <i className='fas fa-search'></i>
-      </button>
-    </form>
-  );
+        <button
+          className='btn btn-outline-primary active mr-lg-2'
+          type='button'
+          onClick={changeLang}
+        >
+          RU
+        </button>
+        <input
+          className='form-control mr-sm-2 w-50'
+          type='text'
+          value={search.query || ''}
+          placeholder='Search for the movie...'
+          onChange={updateSearch}
+        />
+        <button className='btn btn-outline-light my-2' type='submit'>
+          <i className='fas fa-search'></i>
+        </button>
+      </form>
+    );
+  } else {
+    return (
+      <form
+        className='form-inline justify-content-center'
+        onSubmit={searchMovies}
+      >
+        <button
+          className='btn btn-outline-primary active mr-lg-2'
+          type='button'
+          onClick={changeLang}
+        >
+          EN
+        </button>
+        <input
+          className='form-control mr-sm-2 w-50'
+          type='text'
+          value={search.query || ''}
+          placeholder='Поиск по фильмам...'
+          onChange={updateSearch}
+        />
+        <button className='btn btn-outline-light my-2' type='submit'>
+          <i className='fas fa-search'></i>
+        </button>
+      </form>
+    );
+  }
 };
 
 export default Search;

@@ -17,6 +17,8 @@
     color: #248bcc;
     &:hover {
       color: #248bcc;
+      text-emphasis: none;
+      text-decoration: none;
     }
   }
 
@@ -204,6 +206,12 @@
           justify-content: center;
           align-items: center;
           display: flex;
+          text-emphasis: none;
+          text-decoration: none;
+          &:hover {
+            text-emphasis: none;
+            text-decoration: none;
+          }
         }
       }
 
