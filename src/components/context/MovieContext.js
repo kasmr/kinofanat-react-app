@@ -1,42 +1,67 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext, useEffect, useReducer } from 'react';
+import AppReducer from './AppReducer';
 
-export const MovieContext = createContext();
+const initialState = {
+  movies: [],
+  lang: 'ru-RU',
+  singleMovie: {},
+  singleMovieTrailer: {},
+};
 
-export const MovieProvider = (props) => {
-  //MoviesState
-  const [movies, setMovies] = useState([]);
-  const [lang, setLang] = useState('ru-RU');
+export const MovieContext = createContext(initialState);
 
-  const changeLang = () => {
-    if (lang === 'en-US') {
-      setLang('ru-RU');
-    } else {
-      setLang('en-US');
-    }
-    setSearch({ active: false });
-  };
+export const MovieProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(AppReducer, initialState);
+
+  const url = 'https://api.themoviedb.org';
+  const key = process.env.REACT_APP_API_KEY;
+
+  //Actions
+
+  //Get movies for home page
 
   const getMovies = async () => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/now_playing?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}&page=1`
+    const res = await fetch(
+      `${url}/3/movie/now_playing?api_key=${key}&language=${state.lang}&page=1`
     );
-    const data = await response.json();
-    setMovies(data.results);
+    const data = await res.json();
+    dispatch({ type: 'GET_MOVIES', payload: data.results });
   };
 
-  useEffect(() => {
-    getMovies();
-  }, [lang]);
+  //Get Single Movie Details
+
+  const getMovieInfo = async (id) => {
+    const res = await fetch(
+      `${url}/3/movie/${id}?api_key=${key}&language=${state.lang}`
+    );
+
+    const data = await res.json();
+
+    dispatch({ type: 'GET_MOVIE_INFO', payload: data });
+  };
+
+  //Get trailer for a current movie
+
+  const getMovieTrailer = async (id) => {
+    const res = await fetch(
+      `${url}/3/movie/${id}/videos?api_key=${key}&language=${state.lang}`
+    );
+
+    const data = await res.json();
+
+    dispatch({ type: 'GET_MOVIE_TRAILER', payload: data.results });
+  };
+
+  //Clean up function for a trailer state
+  const cleanUpTrailer = () => {
+    dispatch({ type: 'CLEAN_UP_TRAILER' });
+  };
 
   //HomeReset
   const resetHome = () => {
     getMovies();
     setSearch({ active: false });
   };
-
-  //MovieDetailState
-
-  const [movie, setMovie] = useState([]);
 
   //CastAndCrewState
 
@@ -50,14 +75,10 @@ export const MovieProvider = (props) => {
   //ReviewsState
   const [reviews, setReviews] = useState([]);
 
-  //TrailerState
-
-  const [trailers, setTrailers] = useState([]);
-
   //SearchState
 
   const [search, setSearch] = useState({
-    query: '',
+    query: null,
     redirect: false,
     active: false,
   });
@@ -72,18 +93,24 @@ export const MovieProvider = (props) => {
 
   const [similar, setSimilar] = useState([]);
 
+  //Change language
+
+  const changeLang = () => {
+    dispatch({ type: 'CHANGE_LANG' });
+  };
+
   return (
     <MovieContext.Provider
       value={{
-        movies,
-        setMovies,
+        movies: state.movies,
         getMovies,
-        movie,
-        setMovie,
+        singleMovie: state.singleMovie,
+        getMovieInfo,
+        singleMovieTrailer: state.singleMovieTrailer,
+        getMovieTrailer,
+        cleanUpTrailer,
         search,
         setSearch,
-        trailers,
-        setTrailers,
         screenshots,
         setScreenshots,
         cast,
@@ -101,12 +128,11 @@ export const MovieProvider = (props) => {
         resetHome,
         similar,
         setSimilar,
-        lang,
-        setLang,
+        lang: state.lang,
         changeLang,
       }}
     >
-      {props.children}
+      {children}
     </MovieContext.Provider>
   );
 };

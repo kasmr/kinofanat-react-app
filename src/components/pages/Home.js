@@ -1,10 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import { Link } from 'react-router-dom';
 import '../../index.scss';
 
 const Home = () => {
-  const { movies, search, lang } = useContext(MovieContext);
+  const { movies, search, lang, getMovies } = useContext(MovieContext);
+
+  useEffect(() => {
+    getMovies();
+    //eslint-disable-next-line
+  }, [lang]);
 
   if (lang === 'en-US') {
     return (
@@ -12,7 +17,7 @@ const Home = () => {
         {movies.length !== 0 ? (
           <div>
             {search.active !== true ? (
-              <h1 className='home-heading'>Popular Movies Today</h1>
+              <h1 className='home-heading'>Popular movies Today</h1>
             ) : (
               <h1 className='home-heading'>These are your search results</h1>
             )}
@@ -42,7 +47,7 @@ const Home = () => {
                     <i className='far fa-calendar-alt text-primary' />
                   </h4>
                   <h4>
-                    Average rating:
+                    Average rating :{' '}
                     <span
                       className={
                         movie.vote_average > 7.0
@@ -96,7 +101,7 @@ const Home = () => {
                     <i className='far fa-calendar-alt text-primary' />
                   </h4>
                   <h4>
-                    Средний рейтинг:
+                    Средний рейтинг :{' '}
                     <span
                       className={
                         movie.vote_average > 7.0

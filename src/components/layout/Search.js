@@ -62,6 +62,7 @@ const Search = () => {
           value={search.query || ''}
           placeholder='Search for the movie...'
           onChange={updateSearch}
+          required
         />
         <button className='btn btn-outline-light my-2' type='submit'>
           <i className='fas fa-search'></i>
@@ -87,6 +88,7 @@ const Search = () => {
           value={search.query || ''}
           placeholder='Поиск по фильмам...'
           onChange={updateSearch}
+          required
         />
         <button className='btn btn-outline-light my-2' type='submit'>
           <i className='fas fa-search'></i>

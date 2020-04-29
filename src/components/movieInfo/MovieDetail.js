@@ -6,37 +6,23 @@ import '../../movieDetails.scss';
 const MovieDetail = (match) => {
   const movieId = match.match.params.id;
 
-  const { movie, setMovie, trailers, setTrailers, search, lang } = useContext(
-    MovieContext
-  );
+  const {
+    singleMovie,
+    getMovieInfo,
+    singleMovieTrailer,
+    getMovieTrailer,
+    cleanUpTrailer,
+    search,
+    lang,
+  } = useContext(MovieContext);
 
   useEffect(() => {
-    getMovie();
-    getTrailer();
+    getMovieInfo(movieId);
+    getMovieTrailer(movieId);
     return () => {
-      setTrailers([]);
+      cleanUpTrailer();
     };
   }, [lang]);
-
-  const getMovie = async () => {
-    const getMovie = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
-    );
-
-    const movie = await getMovie.json();
-    setMovie(movie);
-  };
-
-  const getTrailer = async () => {
-    const getTrailer = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
-    );
-
-    const data = await getTrailer.json();
-    data.results.filter((result) =>
-      result.type === 'Trailer' ? setTrailers(result) : null
-    );
-  };
 
   const {
     id,
@@ -54,7 +40,7 @@ const MovieDetail = (match) => {
     production_countries,
     tagline,
     backdrop_path,
-  } = movie;
+  } = singleMovie;
 
   if (search.redirect === true) {
     return <Redirect to='/' />;
@@ -133,7 +119,7 @@ const MovieDetail = (match) => {
             <h4>
               Release date: <span className='second-text'>{release_date}</span>
             </h4>
-            {movie.homepage ? (
+            {singleMovie.homepage ? (
               <div className='homepage container-fluid'>
                 <h4>Homepage of the movie:</h4>
                 <a href={homepage} target='_blank' rel='noopener noreferrer'>
@@ -190,16 +176,16 @@ const MovieDetail = (match) => {
                 </button>
               </Link>
             </div>
-            {trailers.key !== undefined ? (
+            {singleMovieTrailer.key !== undefined ? (
               <div>
                 <h4 className='mb-3'>
                   {lang === 'en-US' ? 'Trailer: ' : 'Трейлер: '}
                 </h4>
                 <iframe
-                  key={trailers.id}
+                  key={singleMovieTrailer.id}
                   width='560'
                   height='315'
-                  src={`https://www.youtube.com/embed/${trailers.key}`}
+                  src={`https://www.youtube.com/embed/${singleMovieTrailer.key}`}
                   allow='accelerometer; autoplay; encrypted-media; 
                   gyroscope; picture-in-picture; fullscreen'
                   title='trailer'
@@ -283,7 +269,7 @@ const MovieDetail = (match) => {
             <h4>
               Дата релиза: <span className='second-text'>{release_date}</span>
             </h4>
-            {movie.homepage ? (
+            {singleMovie.homepage ? (
               <div className='homepage container-fluid'>
                 <h4>Веб-сайт фильма:</h4>
                 <a href={homepage} target='_blank' rel='noopener noreferrer'>
@@ -340,14 +326,14 @@ const MovieDetail = (match) => {
                 </button>
               </Link>
             </div>
-            {trailers.key !== undefined ? (
+            {singleMovieTrailer.key !== undefined ? (
               <div>
                 <h4 className='mb-3'>Трейлер:</h4>
                 <iframe
-                  key={trailers.id}
+                  key={singleMovieTrailer.id}
                   width='560'
                   height='315'
-                  src={`https://www.youtube.com/embed/${trailers.key}`}
+                  src={`https://www.youtube.com/embed/${singleMovieTrailer.key}`}
                   allow='accelerometer; autoplay; encrypted-media; 
                   gyroscope; picture-in-picture; fullscreen'
                   title='trailer'
