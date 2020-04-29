@@ -2,33 +2,32 @@ import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import '../../movieDetails.scss';
 import { Redirect } from 'react-router-dom';
+import Loader from '../layout/Loader';
 
-const Screenshots = match => {
-  const { screenshots, setScreenshots, search, lang } = useContext(
+const Screenshots = (match) => {
+  const { screenshots, getScreenshots, search, lang, loading } = useContext(
     MovieContext
   );
 
-  useEffect(() => {
-    getScreenShots();
-  }, []);
+  const movieID = match.match.params.id;
 
-  const getScreenShots = async () => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${match.match.params.id}/images?api_key=35f31bc5ec65018dd8090674c49fe3d2`
-    );
-    const data = await response.json();
-    setScreenshots(data.backdrops);
-    console.log(data.backdrops);
-  };
+  useEffect(() => {
+    getScreenshots(movieID);
+    //eslint-disable-next-line
+  }, [movieID]);
 
   if (search.redirect === true) {
     return <Redirect to='/' />;
   }
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className='screenshots-container container-fluid'>
       {screenshots.length !== 0 ? (
-        screenshots.map(screenshot => (
+        screenshots.map((screenshot) => (
           <a
             key={screenshot.file_path}
             href={`https://image.tmdb.org/t/p/original${screenshot.file_path}`}
@@ -52,7 +51,7 @@ const Screenshots = match => {
             top: '50%',
             bottom: '0',
             left: '0',
-            right: '0'
+            right: '0',
           }}
         >
           {lang === 'en-US'

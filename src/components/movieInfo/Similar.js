@@ -1,25 +1,26 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import { Redirect, Link } from 'react-router-dom';
+import Loader from '../layout/Loader';
 
-const Similar = match => {
-  const { similar, setSimilar, search, lang } = useContext(MovieContext);
+const Similar = (match) => {
+  const { similarMovies, getSimilarMovies, search, lang, loading } = useContext(
+    MovieContext
+  );
+
+  const movieId = match.match.params.id;
 
   useEffect(() => {
-    getSimilar();
-  }, [lang]);
-
-  const getSimilar = async () => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${match.match.params.id}/similar?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
-    );
-    const data = await response.json();
-    setSimilar(data.results);
-    console.log(data.results);
-  };
+    getSimilarMovies(movieId);
+    //eslint-disable-next-line
+  }, [lang, movieId]);
 
   if (search.redirect === true) {
     return <Redirect to='/' />;
+  }
+
+  if (loading) {
+    return <Loader />;
   }
 
   return (
@@ -28,8 +29,8 @@ const Similar = match => {
         {lang === 'en-US' ? 'Similar movies:' : 'Похожие фильмы:'}
       </h1>
       <div className='row pb-5'>
-        {similar.length !== 0 ? (
-          similar.map(movie => (
+        {similarMovies.length !== 0 ? (
+          similarMovies.map((movie) => (
             <div className='col cast' key={movie.backdrop_path}>
               <Link to={`/movie/${movie.id}`}>
                 {' '}
@@ -55,7 +56,7 @@ const Similar = match => {
               top: '50%',
               bottom: '0',
               left: '0',
-              right: '0'
+              right: '0',
             }}
           >
             {lang === 'en-US'

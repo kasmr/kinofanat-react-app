@@ -1,27 +1,26 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import { Redirect, Link } from 'react-router-dom';
+import Loader from '../layout/Loader';
 
 const Cast = (match) => {
-  const { cast, setCast, crew, setCrew, search, lang } = useContext(
+  const { cast, getMovieCast, crew, search, lang, loading } = useContext(
     MovieContext
   );
 
-  useEffect(() => {
-    getCast();
-  }, []);
+  const movieId = match.match.params.id;
 
-  const getCast = async () => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${match.match.params.id}/credits?api_key=35f31bc5ec65018dd8090674c49fe3d2`
-    );
-    const data = await response.json();
-    setCast(data.cast);
-    setCrew(data.crew);
-  };
+  useEffect(() => {
+    getMovieCast(movieId);
+    //eslint-disable-next-line
+  }, [movieId]);
 
   if (search.redirect === true) {
     return <Redirect to='/' />;
+  }
+
+  if (loading) {
+    return <Loader />;
   }
 
   if (lang === 'en-US') {
@@ -29,7 +28,7 @@ const Cast = (match) => {
       <div className='container-fluid' id='cast-container'>
         <h1 className='text-center mt-3'>Cast of the film:</h1>
         <div className='row pb-lg-5'>
-          {cast.length !== 0 ? (
+          {cast.length ? (
             cast.map((person) => (
               <div className='col cast' key={person.cast_id}>
                 <Link to={`/person/${person.id}`}>
@@ -80,7 +79,7 @@ const Cast = (match) => {
       <div className='container-fluid' id='cast-container'>
         <h1 className='text-center mt-3'>Актерский состав:</h1>
         <div className='row pb-lg-5'>
-          {cast.length !== 0 ? (
+          {cast.length ? (
             cast.map((person) => (
               <div className='col cast' key={person.cast_id}>
                 <Link to={`/person/${person.id}`}>

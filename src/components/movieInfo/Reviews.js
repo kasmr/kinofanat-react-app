@@ -1,22 +1,23 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import { Redirect } from 'react-router-dom';
+import Loader from '../layout/Loader';
 
 const Cast = (match) => {
-  const { reviews, setReviews, search, lang } = useContext(MovieContext);
+  const { reviews, getReviews, search, lang, loading } = useContext(
+    MovieContext
+  );
+
+  const movieId = match.match.params.id;
 
   useEffect(() => {
-    getReviews();
-  }, [lang]);
+    getReviews(movieId);
+    //eslint-disable-next-line
+  }, [lang, movieId]);
 
-  const getReviews = async () => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${match.match.params.id}/reviews?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
-    );
-    const data = await response.json();
-    setReviews(data.results);
-    console.log(data);
-  };
+  if (loading) {
+    return <Loader />;
+  }
 
   if (search.redirect === true) {
     return <Redirect to='/' />;

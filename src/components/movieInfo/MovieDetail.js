@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import { Link, Redirect } from 'react-router-dom';
 import '../../movieDetails.scss';
+import Loader from '../layout/Loader';
 
 const MovieDetail = (match) => {
   const movieId = match.match.params.id;
@@ -14,6 +15,7 @@ const MovieDetail = (match) => {
     cleanUpTrailer,
     search,
     lang,
+    loading,
   } = useContext(MovieContext);
 
   useEffect(() => {
@@ -22,7 +24,8 @@ const MovieDetail = (match) => {
     return () => {
       cleanUpTrailer();
     };
-  }, [lang]);
+    //eslint-disable-next-line
+  }, [lang, movieId]);
 
   const {
     id,
@@ -46,12 +49,18 @@ const MovieDetail = (match) => {
     return <Redirect to='/' />;
   }
 
+  if (loading) {
+    return <Loader />;
+  }
+
   if (lang === 'en-US') {
     return (
       <div
         className='background-image'
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/original/${
+            backdrop_path && backdrop_path
+          })`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'top center bottom',
@@ -60,7 +69,7 @@ const MovieDetail = (match) => {
       >
         <div className='movieDetails d-flex'>
           <div>
-            {poster_path !== null ? (
+            {poster_path ? (
               <img
                 className='poster'
                 src={`https://image.tmdb.org/t/p/w500${poster_path}`}
@@ -128,7 +137,7 @@ const MovieDetail = (match) => {
               </div>
             ) : null}
             <h4>
-              Average rating:
+              Average rating:{' '}
               <span
                 className={vote_average > 7.0 ? 'text-success' : 'text-warning'}
               >
@@ -176,11 +185,9 @@ const MovieDetail = (match) => {
                 </button>
               </Link>
             </div>
-            {singleMovieTrailer.key !== undefined ? (
+            {singleMovieTrailer && (
               <div>
-                <h4 className='mb-3'>
-                  {lang === 'en-US' ? 'Trailer: ' : 'Трейлер: '}
-                </h4>
+                <h4 className='mb-3'>Trailer:</h4>
                 <iframe
                   key={singleMovieTrailer.id}
                   width='560'
@@ -191,7 +198,7 @@ const MovieDetail = (match) => {
                   title='trailer'
                 ></iframe>
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       </div>
@@ -210,7 +217,7 @@ const MovieDetail = (match) => {
       >
         <div className='movieDetails d-flex'>
           <div>
-            {poster_path !== null ? (
+            {poster_path ? (
               <img
                 className='poster'
                 src={`https://image.tmdb.org/t/p/w500${poster_path}`}
@@ -278,7 +285,7 @@ const MovieDetail = (match) => {
               </div>
             ) : null}
             <h4>
-              Средний рейтинг :
+              Средний рейтинг :{' '}
               <span
                 className={vote_average > 7.0 ? 'text-success' : 'text-warning'}
               >
@@ -326,7 +333,7 @@ const MovieDetail = (match) => {
                 </button>
               </Link>
             </div>
-            {singleMovieTrailer.key !== undefined ? (
+            {singleMovieTrailer && (
               <div>
                 <h4 className='mb-3'>Трейлер:</h4>
                 <iframe
@@ -339,7 +346,7 @@ const MovieDetail = (match) => {
                   title='trailer'
                 ></iframe>
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       </div>
