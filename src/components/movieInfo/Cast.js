@@ -4,7 +4,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Loader from '../layout/Loader';
 
 const Cast = (match) => {
-  const { cast, getMovieCast, crew, search, lang, loading } = useContext(
+  const { cast, getMovieCast, crew, redirect, lang, loading } = useContext(
     MovieContext
   );
 
@@ -15,8 +15,8 @@ const Cast = (match) => {
     //eslint-disable-next-line
   }, [movieId]);
 
-  if (search.redirect === true) {
-    return <Redirect to='/' />;
+  if (redirect) {
+    return <Redirect to='/search' />;
   }
 
   if (loading) {

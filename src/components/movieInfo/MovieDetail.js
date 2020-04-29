@@ -13,7 +13,7 @@ const MovieDetail = (match) => {
     singleMovieTrailer,
     getMovieTrailer,
     cleanUpTrailer,
-    search,
+    redirect,
     lang,
     loading,
   } = useContext(MovieContext);
@@ -45,8 +45,8 @@ const MovieDetail = (match) => {
     backdrop_path,
   } = singleMovie;
 
-  if (search.redirect === true) {
-    return <Redirect to='/' />;
+  if (redirect) {
+    return <Redirect to='/search' />;
   }
 
   if (loading) {

@@ -12,6 +12,7 @@ import Reviews from './components/movieInfo/Reviews';
 import Person from './components/personInfo/Person';
 import Similar from './components/movieInfo/Similar';
 import { ToastProvider } from 'react-toast-notifications';
+import Results from './components/pages/Results';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/about' component={About} />
+              <Route exact path='/search' component={Results} />
               <Route exact path='/movie/:id' component={MovieDetail} />
               <Route path='/movie/:id/screenshots' component={Screenshots} />
               <Route path='/movie/:id/cast' component={Cast} />

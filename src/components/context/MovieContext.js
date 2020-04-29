@@ -1,5 +1,6 @@
-import React, { useState, createContext, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
+import { Redirect } from 'react-router-dom';
 
 const initialState = {
   lang: 'ru-RU',
@@ -15,6 +16,9 @@ const initialState = {
   personInfo: {},
   personCast: [],
   personCrew: [],
+  query: '',
+  redirect: false,
+  results: [],
 };
 
 export const MovieContext = createContext(initialState);
@@ -150,19 +154,25 @@ export const MovieProvider = ({ children }) => {
     dispatch({ type: 'GET_PERSON_MOVIES', payload: data });
   };
 
-  //HomeReset
-  const resetHome = () => {
-    getMovies();
-    setSearch({ active: false });
+  //Set search query
+
+  const setQuery = (text) => {
+    dispatch({ type: 'SET_QUERY', payload: text });
   };
 
-  //SearchState
+  //Search movies
 
-  const [search, setSearch] = useState({
-    query: null,
-    redirect: false,
-    active: false,
-  });
+  const searchMovies = async () => {
+    setLoading();
+
+    const res = await fetch(
+      `${url}/search/movie?api_key=${key}&language=${state.lang}&query=${state.query}&include_adult=false`
+    );
+
+    const { results } = await res.json();
+
+    dispatch({ type: 'SEARCH_MOVIES', payload: results });
+  };
 
   //Change language
 
@@ -180,37 +190,34 @@ export const MovieProvider = ({ children }) => {
     <MovieContext.Provider
       value={{
         movies: state.movies,
-        getMovies,
+        loading: state.loading,
         singleMovie: state.singleMovie,
-        getMovieInfo,
+        lang: state.lang,
         singleMovieTrailer: state.singleMovieTrailer,
-        getMovieTrailer,
-        cleanUpTrailer,
-        screenshots: state.screenshots,
-        getScreenshots,
-        reviews: state.reviews,
-        getReviews,
-        similarMovies: state.similarMovies,
-        getSimilarMovies,
         cast: state.movieCast,
         crew: state.movieCrew,
-        getMovieCast,
+        screenshots: state.screenshots,
+        reviews: state.reviews,
+        similarMovies: state.similarMovies,
         personInfo: state.personInfo,
-        getPersonInfo,
-        getPersonMovies,
-
         personCast: state.personCast,
         personCrew: state.personCrew,
-
-        search,
-        setSearch,
-
-        resetHome,
-
-        lang: state.lang,
+        redirect: state.redirect,
+        results: state.results,
+        searchMovies,
+        setQuery,
+        getMovies,
+        getMovieInfo,
+        getScreenshots,
         changeLang,
-        loading: state.loading,
+        getMovieTrailer,
+        cleanUpTrailer,
         setLoading,
+        getSimilarMovies,
+        getReviews,
+        getMovieCast,
+        getPersonInfo,
+        getPersonMovies,
       }}
     >
       {children}

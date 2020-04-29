@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Loader from '../layout/Loader';
 
 const Screenshots = (match) => {
-  const { screenshots, getScreenshots, search, lang, loading } = useContext(
+  const { screenshots, getScreenshots, redirect, lang, loading } = useContext(
     MovieContext
   );
 
@@ -16,8 +16,8 @@ const Screenshots = (match) => {
     //eslint-disable-next-line
   }, [movieID]);
 
-  if (search.redirect === true) {
-    return <Redirect to='/' />;
+  if (redirect) {
+    return <Redirect to='/search' />;
   }
 
   if (loading) {

@@ -1,12 +1,11 @@
 import React, { useEffect, useContext } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { MovieContext } from '../context/MovieContext';
 import Loader from '../layout/Loader';
 import '../../personDetails.scss';
 
 const Person = (match) => {
   const {
-    search,
     personInfo,
     getPersonInfo,
     getPersonMovies,
@@ -14,6 +13,7 @@ const Person = (match) => {
     personCrew,
     loading,
     lang,
+    redirect,
   } = useContext(MovieContext);
 
   const personId = match.match.params.id;
@@ -21,6 +21,7 @@ const Person = (match) => {
   useEffect(() => {
     getPersonInfo(personId);
     getPersonMovies(personId);
+    //eslint-disable-next-line
   }, [lang, personId]);
 
   const {
@@ -34,8 +35,8 @@ const Person = (match) => {
     also_known_as,
   } = personInfo;
 
-  if (search.redirect === true) {
-    return <Redirect to='/' />;
+  if (redirect) {
+    return <Redirect to='/search' />;
   }
 
   if (loading) {

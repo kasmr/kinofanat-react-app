@@ -1,28 +1,26 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import '../../index.scss';
 
 const Home = () => {
-  const { movies, search, lang, getMovies } = useContext(MovieContext);
+  const { redirect, movies, lang, getMovies } = useContext(MovieContext);
 
   useEffect(() => {
     getMovies();
     //eslint-disable-next-line
   }, [lang]);
 
+  if (redirect) {
+    return <Redirect to='/search' />;
+  }
+
   if (lang === 'en-US') {
     return (
       <div>
-        {movies.length !== 0 ? (
-          <div>
-            {search.active !== true ? (
-              <h1 className='home-heading'>Popular movies Today</h1>
-            ) : (
-              <h1 className='home-heading'>These are your search results</h1>
-            )}
-          </div>
-        ) : null}
+        <div>
+          <h1 className='home-heading'>Popular movies Today</h1>
+        </div>
         <div className='home'>
           {movies.map((movie) => (
             <div className='movie-card' key={movie.id}>
@@ -68,15 +66,9 @@ const Home = () => {
   } else {
     return (
       <div>
-        {movies.length !== 0 ? (
-          <div>
-            {search.active !== true ? (
-              <h1 className='home-heading'>Популярные фильмы сегодня</h1>
-            ) : (
-              <h1 className='home-heading'>Результаты поиска:</h1>
-            )}
-          </div>
-        ) : null}
+        <div>
+          <h1 className='home-heading'>Популярные фильмы сегодня</h1>
+        </div>
         <div className='home'>
           {movies.map((movie) => (
             <div className='movie-card' key={movie.id}>
