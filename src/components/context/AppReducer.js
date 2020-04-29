@@ -46,6 +46,19 @@ export default (state, action) => {
         movieCrew: action.payload.crew,
         loading: false,
       };
+    case 'GET_PERSON_INFO':
+      return {
+        ...state,
+        personInfo: action.payload,
+        loading: false,
+      };
+    case 'GET_PERSON_MOVIES':
+      return {
+        ...state,
+        personCast: action.payload.cast,
+        personCrew: action.payload.crew,
+        loading: false,
+      };
     case 'CHANGE_LANG':
       return {
         ...state,

@@ -1,41 +1,27 @@
 import React, { useEffect, useContext } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { MovieContext } from '../context/MovieContext';
+import Loader from '../layout/Loader';
 import '../../personDetails.scss';
 
 const Person = (match) => {
   const {
     search,
-    person,
-    setPerson,
-    personMovies,
-    setPersonMovies,
+    personInfo,
+    getPersonInfo,
+    getPersonMovies,
+    personCast,
     personCrew,
-    setPersonCrew,
+    loading,
     lang,
   } = useContext(MovieContext);
 
+  const personId = match.match.params.id;
+
   useEffect(() => {
-    getPerson();
-    getPersonMovies();
-  }, [lang]);
-
-  const getPerson = async () => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/person/${match.match.params.id}?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
-    );
-    const data = await response.json();
-    setPerson(data);
-  };
-
-  const getPersonMovies = async () => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/person/${match.match.params.id}/movie_credits?api_key=35f31bc5ec65018dd8090674c49fe3d2&language=${lang}`
-    );
-    const data = await response.json();
-    setPersonMovies(data.cast);
-    setPersonCrew(data.crew);
-  };
+    getPersonInfo(personId);
+    getPersonMovies(personId);
+  }, [lang, personId]);
 
   const {
     profile_path,
@@ -46,10 +32,14 @@ const Person = (match) => {
     biography,
     homepage,
     also_known_as,
-  } = person;
+  } = personInfo;
 
   if (search.redirect === true) {
     return <Redirect to='/' />;
+  }
+
+  if (loading) {
+    return <Loader />;
   }
 
   if (lang === 'en-US') {
@@ -72,7 +62,7 @@ const Person = (match) => {
               <h4 className=' text-center second-text'>{also_known_as[0]}</h4>
             )}
             <h4>
-              Date of birth:
+              Date of birth:{' '}
               {birthday ? (
                 <span className='second-text'>{birthday}</span>
               ) : (
@@ -83,12 +73,11 @@ const Person = (match) => {
             </h4>
             {deathday && (
               <h4>
-                Date of death:
-                <span className='second-text'>{deathday}</span>
+                Date of death: <span className='second-text'>{deathday}</span>
               </h4>
             )}
             <h4>
-              Place of birth:
+              Place of birth:{' '}
               {place_of_birth ? (
                 <span className='second-text'>{place_of_birth}</span>
               ) : (
@@ -98,8 +87,8 @@ const Person = (match) => {
               )}
             </h4>
             <p>{biography}</p>
-            <h4>
-              Personal website:
+            <h4 className='d-flex flex-wrap'>
+              Personal website:{' '}
               {homepage ? (
                 <a href={homepage} target='_blank' rel='noopener noreferrer'>
                   {homepage}
@@ -114,7 +103,7 @@ const Person = (match) => {
           </div>
         </div>
         <h4 className='text-center text-uppercase'>As an actor:</h4>
-        {personMovies.length !== 0 ? (
+        {personCast.length !== 0 ? (
           <div>
             <table className='table table-bordered table-light table-hover table-striped table-responsive-sm'>
               <thead className='thead-dark'>
@@ -125,8 +114,8 @@ const Person = (match) => {
                 </tr>
               </thead>
               <tbody>
-                {personMovies &&
-                  personMovies
+                {personCast &&
+                  personCast
                     .sort((a, b) => (a.release_date > b.release_date ? -1 : 1))
                     .map((movie) => (
                       <tr key={movie.credit_id}>
@@ -148,7 +137,7 @@ const Person = (match) => {
             </table>
           </div>
         ) : (
-          <span className='second-text'>
+          <span className='second-text second-text d-flex justify-content-center'>
             Sorry, no information is available at this time
           </span>
         )}
@@ -187,7 +176,7 @@ const Person = (match) => {
             </table>
           </div>
         ) : (
-          <span className='second-text'>
+          <span className='second-text second-text d-flex justify-content-center'>
             Sorry, no information is available at this time
           </span>
         )}
@@ -213,7 +202,7 @@ const Person = (match) => {
               <h4 className=' text-center second-text'>{also_known_as[0]}</h4>
             )}
             <h4>
-              Дата рождения:
+              Дата рождения:{' '}
               {birthday ? (
                 <span className='second-text'>{birthday}</span>
               ) : (
@@ -224,12 +213,11 @@ const Person = (match) => {
             </h4>
             {deathday && (
               <h4>
-                Дата смерти:
-                <span className='second-text'>{deathday}</span>
+                Дата смерти: <span className='second-text'>{deathday}</span>
               </h4>
             )}
             <h4>
-              Место рождения:
+              Место рождения:{' '}
               {place_of_birth ? (
                 <span className='second-text'>{place_of_birth}</span>
               ) : (
@@ -239,7 +227,7 @@ const Person = (match) => {
               )}
             </h4>
             <p>{biography}</p>
-            <h4>
+            <h4 className='d-flex flex-wrap'>
               Веб-сайт:
               {homepage ? (
                 <a href={homepage} target='_blank' rel='noopener noreferrer'>
@@ -255,7 +243,7 @@ const Person = (match) => {
           </div>
         </div>
         <h4 className='text-center text-uppercase'>Актер :</h4>
-        {personMovies.length !== 0 ? (
+        {personCast.length !== 0 ? (
           <div>
             <table className='table table-bordered table-light table-hover table-striped table-responsive-sm'>
               <thead className='thead-dark'>
@@ -266,8 +254,8 @@ const Person = (match) => {
                 </tr>
               </thead>
               <tbody>
-                {personMovies &&
-                  personMovies
+                {personCast &&
+                  personCast
                     .sort((a, b) => (a.release_date > b.release_date ? -1 : 1))
                     .map((movie) => (
                       <tr key={movie.credit_id}>
@@ -289,7 +277,7 @@ const Person = (match) => {
             </table>
           </div>
         ) : (
-          <span className='second-text'>
+          <span className='second-text d-flex justify-content-center'>
             К сожалению, информация отсутсвует...
           </span>
         )}
@@ -328,7 +316,7 @@ const Person = (match) => {
             </table>
           </div>
         ) : (
-          <span className='second-text'>
+          <span className='second-text d-flex justify-content-center'>
             К сожалению, информация отсутсвует...
           </span>
         )}

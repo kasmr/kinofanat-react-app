@@ -12,6 +12,9 @@ const initialState = {
   similarMovies: [],
   movieCast: [],
   movieCrew: [],
+  personInfo: {},
+  personCast: [],
+  personCrew: [],
 };
 
 export const MovieContext = createContext(initialState);
@@ -19,7 +22,7 @@ export const MovieContext = createContext(initialState);
 export const MovieProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  const url = 'https://api.themoviedb.org/3/movie';
+  const url = 'https://api.themoviedb.org/3';
   const key = process.env.REACT_APP_API_KEY;
 
   //Actions
@@ -28,7 +31,7 @@ export const MovieProvider = ({ children }) => {
 
   const getMovies = async () => {
     const res = await fetch(
-      `${url}/now_playing?api_key=${key}&language=${state.lang}&page=1`
+      `${url}/movie/now_playing?api_key=${key}&language=${state.lang}&page=1`
     );
 
     const { results } = await res.json();
@@ -42,7 +45,7 @@ export const MovieProvider = ({ children }) => {
     setLoading();
 
     const res = await fetch(
-      `${url}/${id}?api_key=${key}&language=${state.lang}`
+      `${url}/movie/${id}?api_key=${key}&language=${state.lang}`
     );
 
     const data = await res.json();
@@ -54,7 +57,7 @@ export const MovieProvider = ({ children }) => {
 
   const getMovieTrailer = async (id) => {
     const res = await fetch(
-      `${url}/${id}/videos?api_key=${key}&language=${state.lang}`
+      `${url}/movie/${id}/videos?api_key=${key}&language=${state.lang}`
     );
 
     const { results } = await res.json();
@@ -73,7 +76,7 @@ export const MovieProvider = ({ children }) => {
   const getScreenshots = async (id) => {
     setLoading();
 
-    const res = await fetch(`${url}/${id}/images?api_key=${key}`);
+    const res = await fetch(`${url}/movie/${id}/images?api_key=${key}`);
 
     const { backdrops } = await res.json();
 
@@ -86,7 +89,7 @@ export const MovieProvider = ({ children }) => {
     setLoading();
 
     const res = await fetch(
-      `${url}/${id}/reviews?api_key=${key}&language=${state.lang}`
+      `${url}/movie/${id}/reviews?api_key=${key}&language=${state.lang}`
     );
     const { results } = await res.json();
 
@@ -99,7 +102,7 @@ export const MovieProvider = ({ children }) => {
     setLoading();
 
     const res = await fetch(
-      `${url}/${id}/similar?api_key=${key}&language=${state.lang}`
+      `${url}/movie/${id}/similar?api_key=${key}&language=${state.lang}`
     );
 
     const { results } = await res.json();
@@ -112,11 +115,39 @@ export const MovieProvider = ({ children }) => {
   const getMovieCast = async (id) => {
     setLoading();
 
-    const response = await fetch(`${url}/${id}/credits?api_key=${key}`);
+    const response = await fetch(`${url}/movie/${id}/credits?api_key=${key}`);
 
     const data = await response.json();
 
     dispatch({ type: 'GET_MOVIE_CAST', payload: data });
+  };
+
+  //Get person info
+
+  const getPersonInfo = async (id) => {
+    setLoading();
+
+    const res = await fetch(
+      `${url}/person/${id}?api_key=${key}&language=${state.lang}`
+    );
+
+    const data = await res.json();
+
+    dispatch({ type: 'GET_PERSON_INFO', payload: data });
+  };
+
+  //Get person movies
+
+  const getPersonMovies = async (id) => {
+    setLoading();
+
+    const response = await fetch(
+      `${url}/person/${id}/movie_credits?api_key=${key}&language=${state.lang}`
+    );
+
+    const data = await response.json();
+
+    dispatch({ type: 'GET_PERSON_MOVIES', payload: data });
   };
 
   //HomeReset
@@ -132,12 +163,6 @@ export const MovieProvider = ({ children }) => {
     redirect: false,
     active: false,
   });
-
-  //PersonState
-
-  const [person, setPerson] = useState({});
-  const [personMovies, setPersonMovies] = useState([]);
-  const [personCrew, setPersonCrew] = useState([]);
 
   //Change language
 
@@ -170,14 +195,16 @@ export const MovieProvider = ({ children }) => {
         cast: state.movieCast,
         crew: state.movieCrew,
         getMovieCast,
+        personInfo: state.personInfo,
+        getPersonInfo,
+        getPersonMovies,
+
+        personCast: state.personCast,
+        personCrew: state.personCrew,
+
         search,
         setSearch,
-        person,
-        setPerson,
-        personMovies,
-        setPersonMovies,
-        personCrew,
-        setPersonCrew,
+
         resetHome,
 
         lang: state.lang,

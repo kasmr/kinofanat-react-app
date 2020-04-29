@@ -58,9 +58,7 @@ const MovieDetail = (match) => {
       <div
         className='background-image'
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original/${
-            backdrop_path && backdrop_path
-          })`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'top center bottom',
