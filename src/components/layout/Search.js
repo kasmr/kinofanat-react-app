@@ -2,13 +2,16 @@ import React, { useState, useContext } from 'react';
 import { MovieContext } from '../context/MovieContext';
 
 const Search = () => {
-  const { setQuery, lang, changeLang } = useContext(MovieContext);
+  const { query, setQuery, lang, changeLang, searchMovies } = useContext(
+    MovieContext
+  );
 
   const [searchQuery, setSearchQuery] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
     setQuery(searchQuery);
+    searchMovies(searchQuery);
     setSearchQuery('');
   };
 

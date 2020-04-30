@@ -162,11 +162,11 @@ export const MovieProvider = ({ children }) => {
 
   //Search movies
 
-  const searchMovies = async () => {
+  const searchMovies = async (query) => {
     setLoading();
 
     const res = await fetch(
-      `${url}/search/movie?api_key=${key}&language=${state.lang}&query=${state.query}&include_adult=false`
+      `${url}/search/movie?api_key=${key}&language=${state.lang}&query=${query}&include_adult=false`
     );
 
     const { results } = await res.json();

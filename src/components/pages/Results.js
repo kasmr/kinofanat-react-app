@@ -5,32 +5,20 @@ import '../../index.scss';
 import Loader from '../layout/Loader';
 
 const Results = () => {
-  const { results, lang, searchMovies, loading, query } = useContext(
-    MovieContext
-  );
-
-  useEffect(() => {
-    searchMovies(query);
-
-    //eslint-disable-next-line
-  }, [query]);
+  const { results, lang, loading } = useContext(MovieContext);
 
   if (loading) {
     return <Loader />;
   }
 
-  //   if (!query) {
-  //     return <Redirect to='/' />;
-  //   }
-
-  //   if (!results.length) {
-  //     return (
-  //       <div className='d-flex justify-content-center flex-column align-items-center h-auto'>
-  //         <h1>{lang === 'ru-RU' ? 'Ничего не найдено' : 'No movie was found'}</h1>
-  //         <img src='images/no_results.png' alt='no_results' className='w-25' />
-  //       </div>
-  //     );
-  //   }
+  if (results.length === 0) {
+    return (
+      <div className='d-flex justify-content-center flex-column align-items-center h-auto'>
+        <h1>{lang === 'ru-RU' ? 'Ничего не найдено' : 'No movie was found'}</h1>
+        <img src='images/no_results.png' alt='no_results' className='w-25' />
+      </div>
+    );
+  }
 
   if (lang === 'en-US') {
     return (

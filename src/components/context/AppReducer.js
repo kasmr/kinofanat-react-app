@@ -79,7 +79,7 @@ export default (state, action) => {
         ...state,
         redirect: false,
         results: action.payload,
-        query: '',
+        query: state.query,
         loading: false,
       };
     case 'CHANGE_LANG':
