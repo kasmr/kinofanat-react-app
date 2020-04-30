@@ -106,7 +106,7 @@ const Person = (match) => {
         <h4 className='text-center text-uppercase'>As an actor:</h4>
         {personCast.length !== 0 ? (
           <div>
-            <table className='table table-bordered table-light table-hover table-striped table-responsive-sm'>
+            <table className='table table-bordered table-light table-hover table-striped table-responsive-sm '>
               <thead className='thead-dark'>
                 <tr>
                   <th scope='col'>Movie title</th>

@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
-import { Redirect } from 'react-router-dom';
 
 const initialState = {
   lang: 'ru-RU',

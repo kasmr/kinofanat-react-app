@@ -1,26 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Search from './Search';
-import { MovieContext } from '../context/MovieContext';
 import { Navbar } from 'react-bootstrap';
 
 const NavbarApp = () => {
   const navStyle = {
     // backgroundImage: 'linear-gradient(to left, #434343 0%, black 100%)'
-    backgroundColor: 'black'
+    backgroundColor: 'black',
   };
-
-  const { resetHome } = useContext(MovieContext);
 
   return (
     <Navbar
       expand='lg'
       sticky='top'
-      className='navbar-dark py-0'
+      className='navbar-dark flex-nowrap py-0'
       style={navStyle}
     >
       <NavLink to='/'>
-        <Navbar.Brand onClick={resetHome} className=' text-light'>
+        <Navbar.Brand className=' text-light'>
           <img
             src='/favicon.ico'
             width='30'
@@ -28,25 +25,19 @@ const NavbarApp = () => {
             className='d-inline-block align-top mx-1'
             alt=''
           />
-          KinoFanat
+          <span className='d-none d-lg-inline-block'>KinoFanat</span>
         </Navbar.Brand>
       </NavLink>
-      <Navbar.Toggle aria-controls='basic-navbar-nav' className='my-1' />
-      <Navbar.Collapse id='basic-navbar-nav'>
-        <Search />
-        <ul className='nav flex-nowrap justify-content-center'>
-          <li className='nav-item' onClick={resetHome}>
-            <NavLink className='nav-link text-light' to='/'>
-              <i className='fas fa-home text-primary mx-1'></i>
-            </NavLink>
-          </li>
-          <li className='nav-item'>
-            <NavLink className='nav-link text-light' to='/about'>
-              <i className='fas fa-heart text-danger mx-1'></i>
-            </NavLink>
-          </li>
-        </ul>
-      </Navbar.Collapse>
+      <Search />
+      <NavLink
+        className='nav-link text-light d-none d-lg-flex align-items-center mx-2 '
+        to='/about'
+      >
+        <h5>
+          <i className='fas fa-info-circle text-primary mx-2'></i>
+        </h5>
+        <h5>About</h5>
+      </NavLink>
     </Navbar>
   );
 };

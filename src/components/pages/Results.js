@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../index.scss';
 import Loader from '../layout/Loader';
 
@@ -13,7 +13,7 @@ const Results = () => {
 
   if (results.length === 0) {
     return (
-      <div className='d-flex justify-content-center flex-column align-items-center h-auto'>
+      <div className='d-flex justify-content-center flex-column align-items-center vh-90 '>
         <h1>{lang === 'ru-RU' ? 'Ничего не найдено' : 'No movie was found'}</h1>
         <img src='images/no_results.png' alt='no_results' className='w-25' />
       </div>
