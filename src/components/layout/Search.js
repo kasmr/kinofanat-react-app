@@ -3,7 +3,7 @@ import { MovieContext } from '../context/MovieContext';
 import { withRouter } from 'react-router-dom';
 import '../../index.scss';
 
-const Search = ({ location: { pathname } }) => {
+const Search = ({ history, location: { pathname } }) => {
   const { setQuery, lang, changeLang, searchMovies } = useContext(MovieContext);
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,6 +13,7 @@ const Search = ({ location: { pathname } }) => {
     setQuery(searchQuery);
     searchMovies(searchQuery);
     setSearchQuery('');
+    history.push('/search');
   };
 
   const onChange = (e) => {

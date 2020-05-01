@@ -1,12 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Redirect } from 'react-router-dom';
 import Loader from '../layout/Loader';
 
 const Cast = (match) => {
-  const { reviews, getReviews, redirect, lang, loading } = useContext(
-    MovieContext
-  );
+  const { reviews, getReviews, lang, loading } = useContext(MovieContext);
 
   const movieId = match.match.params.id;
 
@@ -14,10 +11,6 @@ const Cast = (match) => {
     getReviews(movieId);
     //eslint-disable-next-line
   }, [lang, movieId]);
-
-  if (redirect) {
-    return <Redirect to='/search' />;
-  }
 
   if (loading) {
     return <Loader />;

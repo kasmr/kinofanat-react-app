@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../movieDetails.scss';
 import Loader from '../layout/Loader';
 
@@ -13,7 +13,6 @@ const MovieDetail = (match) => {
     singleMovieTrailer,
     getMovieTrailer,
     cleanUpTrailer,
-    redirect,
     lang,
     loading,
   } = useContext(MovieContext);
@@ -44,10 +43,6 @@ const MovieDetail = (match) => {
     tagline,
     backdrop_path,
   } = singleMovie;
-
-  if (redirect) {
-    return <Redirect to='/search' />;
-  }
 
   if (loading) {
     return <Loader />;

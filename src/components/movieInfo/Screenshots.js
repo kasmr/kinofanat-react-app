@@ -1,11 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
 import '../../movieDetails.scss';
-import { Redirect } from 'react-router-dom';
 import Loader from '../layout/Loader';
 
 const Screenshots = (match) => {
-  const { screenshots, getScreenshots, redirect, lang, loading } = useContext(
+  const { screenshots, getScreenshots, lang, loading } = useContext(
     MovieContext
   );
 
@@ -15,10 +14,6 @@ const Screenshots = (match) => {
     getScreenshots(movieID);
     //eslint-disable-next-line
   }, [movieID]);
-
-  if (redirect) {
-    return <Redirect to='/search' />;
-  }
 
   if (loading) {
     return <Loader />;

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MovieContext } from '../context/MovieContext';
 import Loader from '../layout/Loader';
 import '../../personDetails.scss';
@@ -13,7 +13,6 @@ const Person = (match) => {
     personCrew,
     loading,
     lang,
-    redirect,
   } = useContext(MovieContext);
 
   const personId = match.match.params.id;
@@ -34,10 +33,6 @@ const Person = (match) => {
     homepage,
     also_known_as,
   } = personInfo;
-
-  if (redirect) {
-    return <Redirect to='/search' />;
-  }
 
   if (loading) {
     return <Loader />;

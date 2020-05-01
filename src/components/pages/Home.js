@@ -1,19 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../index.scss';
 
 const Home = () => {
-  const { redirect, movies, lang, getMovies } = useContext(MovieContext);
+  const { movies, lang, getMovies } = useContext(MovieContext);
 
   useEffect(() => {
     getMovies();
     //eslint-disable-next-line
   }, [lang]);
-
-  if (redirect) {
-    return <Redirect to='/search' />;
-  }
 
   if (lang === 'en-US') {
     return (

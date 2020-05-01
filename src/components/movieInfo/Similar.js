@@ -1,16 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { MovieContext } from '../context/MovieContext';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Loader from '../layout/Loader';
 
 const Similar = (match) => {
-  const {
-    similarMovies,
-    getSimilarMovies,
-    redirect,
-    lang,
-    loading,
-  } = useContext(MovieContext);
+  const { similarMovies, getSimilarMovies, lang, loading } = useContext(
+    MovieContext
+  );
 
   const movieId = match.match.params.id;
 
@@ -18,10 +14,6 @@ const Similar = (match) => {
     getSimilarMovies(movieId);
     //eslint-disable-next-line
   }, [lang, movieId]);
-
-  if (redirect) {
-    return <Redirect to='/search' />;
-  }
 
   if (loading) {
     return <Loader />;

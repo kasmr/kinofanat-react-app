@@ -16,7 +16,6 @@ const initialState = {
   personCast: [],
   personCrew: [],
   query: '',
-  redirect: false,
   results: [],
 };
 
@@ -201,7 +200,6 @@ export const MovieProvider = ({ children }) => {
         personInfo: state.personInfo,
         personCast: state.personCast,
         personCrew: state.personCrew,
-        redirect: state.redirect,
         results: state.results,
         searchMovies,
         setQuery,
